@@ -1,0 +1,108 @@
+
+const IPv4 = require('pcap/decode/ipv4');
+const fs = require('fs');
+const {exec, execFile, spawn} = require('child_process');
+const recognizer = require('./recognizer');
+const Queue = require('./queue');
+const nfq = require('nfqueue');
+const NFQUEUE_NUM = 2;
+var count = 1;
+var started = false;
+var collectTimerId = null;
+var pktQueue = new Queue();
+var collectable = true;
+
+function startCapture(){
+started = true;
+//collectTime:wq
+	//rId <_ call collectPacketFor()
+exec("iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT", (error, stdout, stderr) => {});
+exec("iptables -A INPUT -j NFQUEUE --queue-num 1", (error, stdout, stderr) => {});
+
+collectTimerId = setInterval(function(){
+if(collectable){
+collectable = false;
+collectPacketFor(500);
+// clearInterval(collectTimerId); //used for debug
+}
+}, 550);
+}
+function stopCapture(){
+	started = false;
+	clearInterval(collectTimerId);
+	collectTimerId = null;
+}
+nfq.createQueueHandler(NFQUEUE_NUM,10000000, function(nfpacket) {
+
+//nfq.NF_DROP or nfq.NF_ACCEPT
+pktQueue.enqueue(nfpacket); //waiting packet queue for evaluation
+
+});
+
+function collectPacketFor(millis){
+console.log('spawning');
+pcapprocess = spawn(__dirname+'/nfq2pcap', ['-q', 1,'-t',2,'-v',3,'-o'+count+'.pcap']);//receive at -q, redirect to -t
+
+pcapprocess.stdout.on('data', (data)=>{console.log(data.toString());});
+pcapprocess.stderr.on('data', (data)=>{console.log(data.toString());});
+setTimeout(function(){
+
+convertToCSV();
+//count += 1;
+//kill process
+pcapprocess.kill('SIGKILL');
+console.log('killed');
+
+
+}, millis);
+}
+function csvConvertionFinished(){
+	 
+fs.exists('1.pcap_Flow.csv',(exists)=>{
+if(exists){
+//receive result {flowId:prediction}
+console.log("file exists");
+recognizer.predictFromCSV('1.pcap_Flow.csv').then((results) => {
+
+
+while(!pktQueue.empty()){
+var nfPacket = pktQueue.dequeue();
+var packet = new IPv4().decode(nfPacket.payload, 0);
+//if protocol is UDP or TCP, get portnumber. otherwise, set port to 0
+var protocolNum = packet.protocol;
+if(protocolNum == 6 || protocolNum == 17){
+	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.payload.sport.toString(), packet.payload.dport.toString(), packet.protocol.toString()]
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.protocol.toString()]
+}else{
+	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0','0' ]; 
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0' ]; 
+
+}
+var flowId = flowInfo.join('-');
+console.log("flowId : "+flowId);
+//console.log("packet : "+nfPacket.payload);
+console.log("which packet ? : "+results[flowId]);
+result = results[flowId];
+if(result == "Benign" || result === undefined){
+nfPacket.setVerdict(nfq.NF_ACCEPT);
+
+}
+else{
+nfPacket.setVerdict(nfq.NF_ACCEPT);
+}
+}
+});
+
+}
+
+collectable = true;//ready to collect packet from nfq	
+});
+}
+function convertToCSV(){
+	console.log("converting to csv");
+	convertprocess = spawn('./cfm',[__dirname+'/'+count+'.pcap','../../'], {cwd:__dirname+'/CICFlowMeter-4.0/bin/'});
+	convertprocess.stdout.on('data', (data) => {console.log(data.toString());});
+	convertprocess.on('exit', csvConvertionFinished);
+
+}
+startCapture();

@@ -1,0 +1,24 @@
+2023-04-10 10:07:05 INFO  cic.cs.unb.ca.ifm.Cmd    Please select pcap!
+2023-04-10 10:07:19 INFO  cic.cs.unb.ca.ifm.CICFlowMeter    Sorry,no pcap files can be found under: /home/yunmo/Documents/gwangjin_ninja/TCPDUMP_and_CICFlowMeter/CICFlowMeters/CICFlowMeter-4.0/bin/data/in/
+2023-04-10 10:07:44 INFO  cic.cs.unb.ca.ifm.Cmd    Please select pcap!
+2023-04-10 10:08:15 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/nfq2pcap/output.pcap
+2023-04-10 10:08:15 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: output.csv
+2023-04-10 10:08:15 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-10 10:08:16 DEBUG cic.cs.unb.ca.jnetpcap.FlowGenerator    FlagFIN current has 44 flow
+2023-04-10 10:08:16 DEBUG cic.cs.unb.ca.jnetpcap.FlowGenerator    FlagFIN current has 50 flow
+2023-04-10 10:08:16 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/nfq2pcap/output.pcap
+2023-04-10 10:08:45 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/nfq2pcap/output.pcap
+2023-04-10 10:08:45 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: .
+2023-04-10 10:08:46 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-10 10:08:46 DEBUG cic.cs.unb.ca.jnetpcap.FlowGenerator    FlagFIN current has 44 flow
+2023-04-10 10:08:46 DEBUG cic.cs.unb.ca.jnetpcap.FlowGenerator    FlagFIN current has 50 flow
+2023-04-10 10:08:46 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/nfq2pcap/output.pcap
+2023-04-10 10:14:10 INFO  cic.cs.unb.ca.ifm.Cmd    Please select pcap!
+2023-04-10 10:14:22 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/nfq2pcap/output.pcap
+2023-04-10 10:14:22 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: output.csv
+2023-04-10 10:14:23 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-10 10:14:23 DEBUG cic.cs.unb.ca.jnetpcap.FlowGenerator    FlagFIN current has 44 flow
+2023-04-10 10:14:23 DEBUG cic.cs.unb.ca.jnetpcap.FlowGenerator    FlagFIN current has 50 flow
+2023-04-10 10:14:23 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/nfq2pcap/output.pcap
+2023-04-10 10:24:29 INFO  cic.cs.unb.ca.ifm.Cmd    Please select pcap!
+2023-04-10 10:24:41 INFO  cic.cs.unb.ca.ifm.Cmd    Please select pcap!

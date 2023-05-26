@@ -1,0 +1,38 @@
+{
+  "name": "nfqueue",
+  "version": "0.3.2",
+  "description": "Netfilter nfqueue binding",
+  "author": {
+    "name": "Anthony Hinsinger",
+    "email": "anthony.hinsinger@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Aleksandr Komlev"
+    },
+    {
+      "name": "Josef Miegl"
+    }
+  ],
+  "main": "./nfqueue",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/atoy40/node-nfqueue.git"
+  },
+  "keywords": [
+    "nfqueue",
+    "queue",
+    "linux",
+    "netfilter",
+    "iptables"
+  ],
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.4.0",
+    "moment": "^2.29.4",
+    "nan": "^2.15.0",
+    "nfqueue": "^0.3.2",
+    "pcap": "^3.1.0",
+    "pcap-writer": "^1.0.1",
+    "queue": "^7.0.0"
+  }
+}

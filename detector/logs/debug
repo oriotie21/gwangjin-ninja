@@ -1,0 +1,24 @@
+2023-04-17 13:40:36 INFO  cic.cs.unb.ca.ifm.Cmd    Please select pcap!
+2023-04-17 13:40:56 INFO  cic.cs.unb.ca.ifm.Cmd    Please select output folder!
+2023-04-17 13:40:59 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:40:59 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: .
+2023-04-17 13:41:00 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-17 13:41:26 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:41:26 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ./
+2023-04-17 13:41:27 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-17 13:41:32 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:41:32 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: .
+2023-04-17 13:41:33 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-17 13:41:40 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:41:40 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: output
+2023-04-17 13:41:41 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-17 13:41:50 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:41:50 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ./output
+2023-04-17 13:41:51 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-17 13:44:58 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:44:58 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ./output
+2023-04-17 13:44:59 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-04-17 13:50:58 INFO  cic.cs.unb.ca.ifm.Cmd    The pcap file or folder does not exist! -> -Djava.library.path=/home/yunmo/Documents/gwangjin_ninja/CICFlowMeter-4.0/lib
+2023-04-17 13:51:25 INFO  cic.cs.unb.ca.ifm.Cmd    You select: 1.pcap
+2023-04-17 13:51:25 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ./output
+2023-04-17 13:51:26 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
