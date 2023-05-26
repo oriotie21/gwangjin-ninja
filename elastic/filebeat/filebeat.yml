@@ -1,0 +1,32 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - "/var/logs/beats/suricata/*.json"
+  tags: ["json", "suricata"]
+  encoding: UTF-8
+  backoff: 1s
+  max_backoff: 2s
+  scan_frequency: 2s
+  close_timeout: 2s
+
+- type: log
+  enabled: true
+  id: csv-harvester
+  paths:
+    - "/var/logs/beats/ml/*.csv"
+  tags: ["csv"]
+  encoding: UTF-8
+  backoff: 1s
+  max_backoff: 2s
+  scan_frequency: 2s
+  close_timeout: 2s
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+setup.template.name: "filebeat"
+setup.template.overwrite: false
+setup.template.settings:
+  index.number_of_shards: 1
+  index.number_of_replicas: 1
