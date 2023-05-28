@@ -37,17 +37,17 @@
         v-for="(hit, index) in filteredHitsWithoutMissingSrcIp"
         :key="index"
         :class="{
-          'table-drop': hit.data.event_type === 'drop',
-          'table-alert': hit.data.event_type === 'alert',
+          'table-drop': hit._source.data.event_type === 'drop',
+          'table-alert': hit._source.data.event_type === 'alert',
         }"
       >
-        <td>{{ hit.data.timestamp }}</td>
-        <td>{{ hit.data.src_ip }}</td>
-        <td>{{ hit.data.dest_ip }}</td>
-        <td>{{ hit.data.proto }}</td>
+        <td>{{ hit._source.data.timestamp }}</td>
+        <td>{{ hit._source.data.src_ip }}</td>
+        <td>{{ hit._source.data.dest_ip }}</td>
+        <td>{{ hit._source.data.proto }}</td>
         <!-- <td>{{ hit._source.message.flow }}</td> -->
-        <td>{{ hit.data.src_port }}</td>
-        <td>{{ hit.data.dest_port }}</td>
+        <td>{{ hit._source.data.src_port }}</td>
+        <td>{{ hit._source.data.dest_port }}</td>
       </tr>
     </tbody>
     <tbody v-else>
@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     filteredHitsWithoutMissingSrcIp() {
-      return this.hits.filter((hit) => hit.data.src_ip);
+      return this.hits.filter((hit) => hit._source.data.src_ip);
     },
   },
   methods: {
