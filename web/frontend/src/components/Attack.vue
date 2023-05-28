@@ -166,8 +166,16 @@ export default {
       axios
         .get("http://localhost:8080/api/hitsjson_duration", {
           params: {
-            lte: "2023-04-08T23:59:59.999999+0900",
-            gte: "2023-04-08T00:00:00.000000+0900",
+            lte:
+              new Date(new Date().getTime() + 9 * 60 * 60 * 1000)
+                .toISOString()
+                .slice(0, 19) + ".999999+0900",
+            gte:
+              new Date(
+                new Date().getTime() + 9 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000
+              )
+                .toISOString()
+                .slice(0, 19) + ".000000+0900",
           },
         })
         .then((response) => {
