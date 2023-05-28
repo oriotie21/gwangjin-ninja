@@ -16,87 +16,43 @@ const client = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const mysql = require("mysql");
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "ninja",
-  password: "ninja1234!",
-  database: "gwangjininja",
-});
-connection.connect();
-
-app.get("/api/account", (req, res) => {
-  if (req.cookies && req.cookies.token) {
-    jwt.verify(req.cookies.token, "sejong1234567", (err, decoded) => {
-      if (err) {
-        return res.sendStatus(401);
-      } else {
-        res.send(decoded);
-      }
-    });
-  } else {
-    res.sendStatus(401);
-  }
-});
-
-app.post("/api/account", (req, res) => {
-  const loginId = req.body.loginId;
-  const loginPw = req.body.loginPw;
-
-  connection.query(
-    "SELECT * FROM users WHERE userid = ? AND userpw = ?",
-    [loginId, loginPw],
-    function (error, results, fields) {
-      if (error) throw error;
-      if (results.length > 0) {
-        // db에서 반환값이 있으면
-        const options = {
-          domain: "localhost",
-          path: "/",
-          httpOnly: true,
-        };
-
-        const token = jwt.sign(
-          {
-            id: loginId,
-            username: results[0].username,
-          },
-          "sejong1234567" /*임의의 암호화 키(서명)*/,
-          {
-            expiresIn: "1h" /*15분 동안 유효*/,
-            issuer: "gwangjininja" /*토큰 발급자*/,
-          }
-        );
-
-        res.cookie("token", token, options);
-        const member = results[0];
-        res.send(member);
-      } else {
-        res.send(404);
-      }
-    }
-  );
-});
-
-app.delete("/api/account", (req, res) => {
-  if (req.cookies && req.cookies.token) {
-    res.clearCookie("token");
-  }
-  res.sendStatus(200);
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-
 app.get("/api/hitsjson", (req, res) => {
   // Elasticsearch 쿼리 실행
   client
     .search({
       index: "network-log",
-      q: "tags:json",
-      sort: "message.timestamp:desc",
       size: 100,
+      body: {
+        sort: [
+          {
+            "data.timestamp": {
+              order: "desc",
+            },
+          },
+        ],
+        query: {
+          bool: {
+            filter: [
+              {
+                match: {
+                  tags: "json",
+                },
+              },
+              {
+                bool: {
+                  must_not: [
+                    {
+                      term: {
+                        "data.src_ip": "127.0.0.1",
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
     })
     .then((response) => {
       // Elasticsearch로부터의 응답 처리
@@ -119,10 +75,11 @@ app.get("/api/hitsjson_duration", (req, res) => {
   client
     .search({
       index: "network-log",
+      size: 100,
       body: {
         sort: [
           {
-            "message.timestamp": {
+            "data.timestamp": {
               order: "desc",
             },
           },
@@ -136,8 +93,19 @@ app.get("/api/hitsjson_duration", (req, res) => {
                 },
               },
               {
+                bool: {
+                  must_not: [
+                    {
+                      term: {
+                        "data.src_ip": "127.0.0.1",
+                      },
+                    },
+                  ],
+                },
+              },
+              {
                 range: {
-                  "message.timestamp": {
+                  "data.timestamp": {
                     gte: gte,
                     lte: lte,
                   },
@@ -165,6 +133,7 @@ app.get("/api/hitscsv", (req, res) => {
   client
     .search({
       index: "network-log",
+      size: 100,
       q: "tags:csv",
     })
     .then((response) => {
@@ -188,10 +157,11 @@ app.get("/api/hitscsv_duration", (req, res) => {
   client
     .search({
       index: "network-log",
+      size: 100,
       body: {
         sort: [
           {
-            "@timestamp": {
+            "data.timestamp": {
               order: "desc",
             },
           },
@@ -206,7 +176,7 @@ app.get("/api/hitscsv_duration", (req, res) => {
               },
               {
                 range: {
-                  "@timestamp": {
+                  "data.timestamp": {
                     gte: gte,
                     lte: lte,
                   },
@@ -219,7 +189,7 @@ app.get("/api/hitscsv_duration", (req, res) => {
     })
     .then((response) => {
       const hits = response.hits.hits;
-      //console.log(hits); // Print data to the console for verification
+      console.log(hits); // Print data to the console for verification
 
       res.json(hits); // Respond with data in JSON format
     })

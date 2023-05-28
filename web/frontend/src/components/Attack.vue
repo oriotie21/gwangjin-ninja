@@ -1,4 +1,5 @@
 <template>
+  <h2><b>최근 24시간 동안의 공격이 표시됩니다.</b></h2>
   <b-container fluid>
     <b-row>
       <div id="map" class="col-md-8"></div>
@@ -90,8 +91,8 @@ export default {
         .then((response) => {
           const data = response.data; // Update the hits data in the component
           data.forEach((data) => {
-            console.log(data._source.message.src_ip);
-            this.fetchCountry(data._source.message.src_ip);
+            console.log(data._source.data.src_ip);
+            this.fetchCountry(data._source.data.src_ip);
           });
 
           this.hits = response.data; // Update the hits data in the component
@@ -116,7 +117,7 @@ export default {
 
           // Iterate through hits and sum the hours for each category
           this.hits.forEach((hit) => {
-            const label = hit._source.label;
+            const label = hit._source.data.label;
 
             if (label === "Benign") {
               total.Benign += 1;
@@ -165,27 +166,18 @@ export default {
       axios
         .get("http://localhost:8080/api/hitsjson_duration", {
           params: {
-            lte:
-              new Date(new Date().getTime() + 9 * 60 * 60 * 1000)
-                .toISOString()
-                .slice(0, 19) + ".999999+0900",
-            gte:
-              new Date(
-                new Date().getTime() + 9 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000
-              )
-                .toISOString()
-                .slice(0, 19) + ".000000+0900",
+            lte: "2023-04-08T23:59:59.999999+0900",
+            gte: "2023-04-08T00:00:00.000000+0900",
           },
         })
         .then((response) => {
           const data = response.data;
           data.forEach((data) => {
-            console.log(data._source.message.src_ip);
-            this.fetchCountry(data._source.message.src_ip);
+            console.log(data._source.data.src_ip);
+            this.fetchCountry(data._source.data.src_ip);
           });
 
           this.hitsjson = response.data;
-          // Calculate the total hours for "Work", "Exercise", and "Sleep"
           let total = {
             rulebased: 0,
           };
