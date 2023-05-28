@@ -4,6 +4,8 @@ const port = 3000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const elasticsearch = require("elasticsearch");
+//import Vue from "vue";
+//const Vue = require("../frontend/src/components/Traffic.vue").default;
 
 // Elasticsearch 클라이언트 생성
 const client = new elasticsearch.Client({
@@ -24,6 +26,13 @@ app.get("/api/hitsjson", (req, res) => {
       index: "network-log",
       size: 100,
       body: {
+        sort: [
+          {
+            "data.timestamp": {
+              order: "desc",
+            },
+          },
+        ],
         query: {
           bool: {
             filter: [
@@ -71,6 +80,13 @@ app.get("/api/hitsjson_duration", (req, res) => {
       index: "network-log",
       size: 100,
       body: {
+        sort: [
+          {
+            "data.timestamp": {
+              order: "desc",
+            },
+          },
+        ],
         query: {
           bool: {
             filter: [
@@ -146,6 +162,13 @@ app.get("/api/hitscsv_duration", (req, res) => {
       index: "network-log",
       size: 100,
       body: {
+        sort: [
+          {
+            "data.timestamp": {
+              order: "desc",
+            },
+          },
+        ],
         query: {
           bool: {
             filter: [
