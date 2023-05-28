@@ -3,10 +3,7 @@ const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
 const elasticsearch = require("elasticsearch");
-//import Vue from "vue";
-//const Vue = require("../frontend/src/components/Traffic.vue").default;
 
 // Elasticsearch 클라이언트 생성
 const client = new elasticsearch.Client({
@@ -15,6 +12,10 @@ const client = new elasticsearch.Client({
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
 
 app.get("/api/hitsjson", (req, res) => {
   // Elasticsearch 쿼리 실행
