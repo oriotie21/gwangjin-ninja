@@ -17,7 +17,7 @@ started = true;
 //collectTime:wq
 	//rId <_ call collectPacketFor()
 exec("iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT", (error, stdout, stderr) => {});
-exec("iptables -A INPUT -j NFQUEUE --queue-num 1", (error, stdout, stderr) => {});
+exec("iptables -A INPUT -j NFQUEUE --queue-num 0", (error, stdout, stderr) => {});
 
 collectTimerId = setInterval(function(){
 if(collectable){

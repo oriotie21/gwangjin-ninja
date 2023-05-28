@@ -27,7 +27,11 @@ class Inputs(BaseModel):
 
 #ninput("press any key to continue...")
 # Set the path to the folder containing your CSV files
-folder_path = "/home/oriotie/gwangjin_ninja/"
+
+script_path = os.path.abspath(__file__)
+parent_path = os.path.dirname(script_path)
+folder_path= os.path.dirname(parent_path)
+
 samplefile_name = "sample.csv"
 sample_folder_path = os.path.join(folder_path,"model/dataset")
 csv_files = ["1.pcap_Flow.csv"]

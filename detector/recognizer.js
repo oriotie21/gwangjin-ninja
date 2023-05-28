@@ -6,7 +6,7 @@ const {spawn} = require('child_process');
 const predictionNameList = ["Benign", "Bot", "Brute Force-WEB", "Burte Force-XSS", "DDOS attack-HOIC", "DDOS attack-LOIC-UDP", "DDOS attack-LOIC-HTTP", "Dos Attacks-GoldenEye", "Dos attacks-Hulk", "Dos attacks-slowHTTPTest", "Dos attacks-SlowIoris", "FTP-BruteForce", "Infilteration", "SQL-Injection", "SSH-Bruteforce"];
 const NFQUEUE_NUM = 2;
 var pktQueue = new Queue();
-var fileName = "0519_test.log";
+var fileName = "/home/oriotie/elastic/logs/ml/0519_test.log";
 
 function request(curlCommand) {
   return new Promise((resolve, reject) => {

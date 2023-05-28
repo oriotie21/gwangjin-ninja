@@ -1,0 +1,152 @@
+28/5/2023 -- 22:39:27 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+28/5/2023 -- 22:39:27 - <Info> - CPUs/cores online: 16
+28/5/2023 -- 22:39:27 - <Info> - NFQ running in route mode with next queue 1
+28/5/2023 -- 22:39:27 - <Info> - fast output device (regular) initialized: fast.log
+28/5/2023 -- 22:39:27 - <Info> - eve-log output device (regular) initialized: eve.json
+28/5/2023 -- 22:39:27 - <Info> - stats output device (regular) initialized: stats.log
+28/5/2023 -- 22:39:27 - <Info> - Running in live mode, activating unix socket
+28/5/2023 -- 22:39:27 - <Warning> - [ERRCODE: SC_ERR_NO_RULES(42)] - No rule files match the pattern /home/oriotie/gwangjin_ninja/rule.rules
+28/5/2023 -- 22:39:27 - <Warning> - [ERRCODE: SC_ERR_NO_RULES_LOADED(43)] - 1 rule files specified, but no rules were loaded!
+28/5/2023 -- 22:39:27 - <Info> - Threshold config parsed: 0 rule(s) found
+28/5/2023 -- 22:39:27 - <Info> - 0 signatures processed. 0 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+28/5/2023 -- 22:39:27 - <Info> - binding this thread 0 to queue '0'
+28/5/2023 -- 22:39:27 - <Info> - setting queue length to 4096
+28/5/2023 -- 22:39:27 - <Info> - setting nfnl bufsize to 6144000
+28/5/2023 -- 22:39:27 - <Info> - Running in live mode, activating unix socket
+28/5/2023 -- 22:39:27 - <Info> - Using unix socket file '/var/suricata-command.socket'
+28/5/2023 -- 22:39:27 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+28/5/2023 -- 22:39:32 - <Notice> - Signal Received.  Stopping engine.
+28/5/2023 -- 22:39:33 - <Info> - time elapsed 5.447s
+28/5/2023 -- 22:39:33 - <Notice> - (RX-NFQ#0) Treated: Pkts 0, Bytes 0, Errors 0
+28/5/2023 -- 22:39:33 - <Notice> - (RX-NFQ#0) Verdict: Accepted 0, Dropped 0, Replaced 0
+28/5/2023 -- 22:39:33 - <Info> - Alerts: 0
+28/5/2023 -- 22:39:33 - <Info> - cleaning up signature grouping structure... complete
+28/5/2023 -- 22:39:38 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+28/5/2023 -- 22:39:38 - <Info> - CPUs/cores online: 16
+28/5/2023 -- 22:39:38 - <Info> - NFQ running in route mode with next queue 1
+28/5/2023 -- 22:39:38 - <Info> - fast output device (regular) initialized: fast.log
+28/5/2023 -- 22:39:38 - <Info> - eve-log output device (regular) initialized: eve.json
+28/5/2023 -- 22:39:38 - <Info> - stats output device (regular) initialized: stats.log
+28/5/2023 -- 22:39:38 - <Info> - Running in live mode, activating unix socket
+28/5/2023 -- 22:39:38 - <Warning> - [ERRCODE: SC_ERR_NO_RULES(42)] - No rule files match the pattern /home/oriotie/gwangjin_ninja/rule.rules
+28/5/2023 -- 22:39:38 - <Info> - 2 rule files processed. 1 rules successfully loaded, 0 rules failed
+28/5/2023 -- 22:39:38 - <Info> - Threshold config parsed: 0 rule(s) found
+28/5/2023 -- 22:39:38 - <Info> - 1 signatures processed. 1 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+28/5/2023 -- 22:39:38 - <Info> - binding this thread 0 to queue '0'
+28/5/2023 -- 22:39:38 - <Info> - setting queue length to 4096
+28/5/2023 -- 22:39:38 - <Info> - setting nfnl bufsize to 6144000
+28/5/2023 -- 22:39:38 - <Info> - Running in live mode, activating unix socket
+28/5/2023 -- 22:39:38 - <Info> - Using unix socket file '/var/suricata-command.socket'
+28/5/2023 -- 22:39:38 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+28/5/2023 -- 22:39:50 - <Notice> - Signal Received.  Stopping engine.
+28/5/2023 -- 22:39:50 - <Info> - time elapsed 12.566s
+28/5/2023 -- 22:39:50 - <Notice> - (RX-NFQ#0) Treated: Pkts 0, Bytes 0, Errors 0
+28/5/2023 -- 22:39:50 - <Notice> - (RX-NFQ#0) Verdict: Accepted 0, Dropped 0, Replaced 0
+28/5/2023 -- 22:39:50 - <Info> - Alerts: 0
+28/5/2023 -- 22:39:51 - <Info> - cleaning up signature grouping structure... complete
+28/5/2023 -- 22:40:43 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+28/5/2023 -- 22:40:43 - <Info> - CPUs/cores online: 16
+28/5/2023 -- 22:40:43 - <Info> - NFQ running in route mode with next queue 1
+28/5/2023 -- 22:40:43 - <Info> - fast output device (regular) initialized: fast.log
+28/5/2023 -- 22:40:43 - <Info> - eve-log output device (regular) initialized: eve.json
+28/5/2023 -- 22:40:43 - <Info> - stats output device (regular) initialized: stats.log
+28/5/2023 -- 22:40:43 - <Info> - Running in live mode, activating unix socket
+28/5/2023 -- 22:40:43 - <Info> - 1 rule files processed. 1 rules successfully loaded, 0 rules failed
+28/5/2023 -- 22:40:43 - <Info> - Threshold config parsed: 0 rule(s) found
+28/5/2023 -- 22:40:43 - <Info> - 1 signatures processed. 1 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+28/5/2023 -- 22:40:43 - <Info> - binding this thread 0 to queue '0'
+28/5/2023 -- 22:40:43 - <Info> - setting queue length to 4096
+28/5/2023 -- 22:40:43 - <Info> - setting nfnl bufsize to 6144000
+28/5/2023 -- 22:40:43 - <Info> - Running in live mode, activating unix socket
+28/5/2023 -- 22:40:43 - <Info> - Using unix socket file '/var/suricata-command.socket'
+28/5/2023 -- 22:40:43 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+29/5/2023 -- 01:50:10 - <Notice> - Signal Received.  Stopping engine.
+29/5/2023 -- 01:50:10 - <Info> - time elapsed 11367.254s
+29/5/2023 -- 01:50:10 - <Notice> - (RX-NFQ#0) Treated: Pkts 2260, Bytes 201361, Errors 0
+29/5/2023 -- 01:50:10 - <Notice> - (RX-NFQ#0) Verdict: Accepted 1037, Dropped 1223, Replaced 0
+29/5/2023 -- 01:50:12 - <Info> - Alerts: 21
+29/5/2023 -- 01:50:13 - <Info> - cleaning up signature grouping structure... complete
+29/5/2023 -- 01:51:00 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+29/5/2023 -- 01:51:00 - <Info> - CPUs/cores online: 16
+29/5/2023 -- 01:51:00 - <Info> - NFQ running in route mode with next queue 1
+29/5/2023 -- 01:51:00 - <Info> - fast output device (regular) initialized: fast.log
+29/5/2023 -- 01:51:00 - <Info> - eve-log output device (regular) initialized: eve.json
+29/5/2023 -- 01:51:00 - <Info> - stats output device (regular) initialized: stats.log
+29/5/2023 -- 01:51:00 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:51:00 - <Warning> - [ERRCODE: SC_ERR_NO_RULES(42)] - No rule files match the pattern /home/oriotie/gwangjin_ninja/elastic/logs/suricata/rule.rules
+29/5/2023 -- 01:51:00 - <Warning> - [ERRCODE: SC_ERR_NO_RULES_LOADED(43)] - 1 rule files specified, but no rules were loaded!
+29/5/2023 -- 01:51:00 - <Info> - Threshold config parsed: 0 rule(s) found
+29/5/2023 -- 01:51:00 - <Info> - 0 signatures processed. 0 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+29/5/2023 -- 01:51:00 - <Info> - binding this thread 0 to queue '0'
+29/5/2023 -- 01:51:00 - <Info> - setting queue length to 4096
+29/5/2023 -- 01:51:00 - <Info> - setting nfnl bufsize to 6144000
+29/5/2023 -- 01:51:01 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:51:01 - <Info> - Using unix socket file '/var/suricata-command.socket'
+29/5/2023 -- 01:51:01 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+29/5/2023 -- 01:51:09 - <Notice> - Signal Received.  Stopping engine.
+29/5/2023 -- 01:51:09 - <Info> - time elapsed 9.177s
+29/5/2023 -- 01:51:09 - <Notice> - (RX-NFQ#0) Treated: Pkts 0, Bytes 0, Errors 0
+29/5/2023 -- 01:51:09 - <Notice> - (RX-NFQ#0) Verdict: Accepted 0, Dropped 0, Replaced 0
+29/5/2023 -- 01:51:09 - <Info> - Alerts: 0
+29/5/2023 -- 01:51:09 - <Info> - cleaning up signature grouping structure... complete
+29/5/2023 -- 01:51:29 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+29/5/2023 -- 01:51:29 - <Info> - CPUs/cores online: 16
+29/5/2023 -- 01:51:29 - <Info> - NFQ running in route mode with next queue 1
+29/5/2023 -- 01:51:29 - <Info> - fast output device (regular) initialized: fast.log
+29/5/2023 -- 01:51:29 - <Info> - eve-log output device (regular) initialized: eve.json
+29/5/2023 -- 01:51:29 - <Info> - stats output device (regular) initialized: stats.log
+29/5/2023 -- 01:51:29 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:51:29 - <Warning> - [ERRCODE: SC_ERR_NO_RULES(42)] - No rule files match the pattern /home/oriotie/gwangjin_ninja/detector/suricata/rule.rules
+29/5/2023 -- 01:51:29 - <Warning> - [ERRCODE: SC_ERR_NO_RULES_LOADED(43)] - 1 rule files specified, but no rules were loaded!
+29/5/2023 -- 01:51:29 - <Info> - Threshold config parsed: 0 rule(s) found
+29/5/2023 -- 01:51:29 - <Info> - 0 signatures processed. 0 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+29/5/2023 -- 01:51:29 - <Info> - binding this thread 0 to queue '0'
+29/5/2023 -- 01:51:29 - <Info> - setting queue length to 4096
+29/5/2023 -- 01:51:29 - <Info> - setting nfnl bufsize to 6144000
+29/5/2023 -- 01:51:30 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:51:30 - <Info> - Using unix socket file '/var/suricata-command.socket'
+29/5/2023 -- 01:51:30 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+29/5/2023 -- 01:51:30 - <Notice> - Signal Received.  Stopping engine.
+29/5/2023 -- 01:51:31 - <Info> - time elapsed 1.153s
+29/5/2023 -- 01:51:31 - <Notice> - (RX-NFQ#0) Treated: Pkts 0, Bytes 0, Errors 0
+29/5/2023 -- 01:51:31 - <Notice> - (RX-NFQ#0) Verdict: Accepted 0, Dropped 0, Replaced 0
+29/5/2023 -- 01:51:31 - <Info> - Alerts: 0
+29/5/2023 -- 01:51:31 - <Info> - cleaning up signature grouping structure... complete
+29/5/2023 -- 01:51:49 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+29/5/2023 -- 01:51:49 - <Info> - CPUs/cores online: 16
+29/5/2023 -- 01:51:49 - <Info> - NFQ running in route mode with next queue 1
+29/5/2023 -- 01:51:49 - <Info> - fast output device (regular) initialized: fast.log
+29/5/2023 -- 01:51:49 - <Info> - eve-log output device (regular) initialized: eve.json
+29/5/2023 -- 01:51:49 - <Info> - stats output device (regular) initialized: stats.log
+29/5/2023 -- 01:51:49 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:51:49 - <Info> - 1 rule files processed. 1 rules successfully loaded, 0 rules failed
+29/5/2023 -- 01:51:49 - <Info> - Threshold config parsed: 0 rule(s) found
+29/5/2023 -- 01:51:49 - <Info> - 1 signatures processed. 1 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+29/5/2023 -- 01:51:49 - <Info> - binding this thread 0 to queue '0'
+29/5/2023 -- 01:51:49 - <Info> - setting queue length to 4096
+29/5/2023 -- 01:51:49 - <Info> - setting nfnl bufsize to 6144000
+29/5/2023 -- 01:51:49 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:51:49 - <Info> - Using unix socket file '/var/suricata-command.socket'
+29/5/2023 -- 01:51:49 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+29/5/2023 -- 01:52:29 - <Notice> - Signal Received.  Stopping engine.
+29/5/2023 -- 01:52:30 - <Info> - time elapsed 40.684s
+29/5/2023 -- 01:52:30 - <Notice> - (RX-NFQ#0) Treated: Pkts 0, Bytes 0, Errors 0
+29/5/2023 -- 01:52:30 - <Notice> - (RX-NFQ#0) Verdict: Accepted 0, Dropped 0, Replaced 0
+29/5/2023 -- 01:52:30 - <Info> - Alerts: 0
+29/5/2023 -- 01:52:30 - <Info> - cleaning up signature grouping structure... complete
+29/5/2023 -- 01:52:47 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+29/5/2023 -- 01:52:47 - <Info> - CPUs/cores online: 16
+29/5/2023 -- 01:52:47 - <Info> - NFQ running in route mode with next queue 1
+29/5/2023 -- 01:52:47 - <Info> - fast output device (regular) initialized: fast.log
+29/5/2023 -- 01:52:47 - <Info> - eve-log output device (regular) initialized: eve.json
+29/5/2023 -- 01:52:47 - <Info> - stats output device (regular) initialized: stats.log
+29/5/2023 -- 01:52:47 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:52:47 - <Info> - 1 rule files processed. 1 rules successfully loaded, 0 rules failed
+29/5/2023 -- 01:52:47 - <Info> - Threshold config parsed: 0 rule(s) found
+29/5/2023 -- 01:52:47 - <Info> - 1 signatures processed. 1 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+29/5/2023 -- 01:52:47 - <Info> - binding this thread 0 to queue '0'
+29/5/2023 -- 01:52:47 - <Info> - setting queue length to 4096
+29/5/2023 -- 01:52:47 - <Info> - setting nfnl bufsize to 6144000
+29/5/2023 -- 01:52:47 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 01:52:47 - <Info> - Using unix socket file '/var/suricata-command.socket'
+29/5/2023 -- 01:52:47 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.

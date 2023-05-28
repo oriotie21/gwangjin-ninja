@@ -58,7 +58,7 @@ vars:
 # The default logging directory.  Any log or output file will be
 # placed here if it's not specified with a full path name. This can be
 # overridden with the -l command line parameter.
-default-log-dir: /home/oriotie/gwangjin_ninja/elastic/logs/1
+default-log-dir: /home/oriotie/gwangjin_ninja/elastic/logs/suricata
 
 # Global stats configuration
 stats:
@@ -1916,7 +1916,7 @@ napatech:
 ## Configure Suricata to load Suricata-Update managed rules.
 ##
 
-default-rule-path: /home/oriotie/gwangjin_ninja
+default-rule-path: /home/oriotie/gwangjin_ninja/detector
 
 rule-files:
   #- suricata.rules
