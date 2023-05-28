@@ -24,7 +24,7 @@ app.get("/api/hitsjson", (req, res) => {
   client
     .search({
       index: "network-log",
-      size: 100000,
+      size: 10000,
       body: {
         sort: [
           {
