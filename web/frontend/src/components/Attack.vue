@@ -191,10 +191,11 @@ export default {
           };
 
           this.hitsjson.forEach(() => {
+            console.log(total.rulebased);
             total.rulebased += 1;
           });
 
-          this.data[1][1] = total[0];
+          this.data[1][1] = total.rulebased;
         })
         .catch((error) => {
           console.error(error);
