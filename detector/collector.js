@@ -6,11 +6,28 @@ const recognizer = require('./recognizer');
 const Queue = require('./queue');
 const nfq = require('nfqueue');
 const NFQUEUE_NUM = 2;
+const csvFileName = "/home/oriotie/gwangjin_ninja/elastic/logs/ml/0519_test.csv";
 var count = 1;
 var started = false;
 var collectTimerId = null;
 var pktQueue = new Queue();
 var collectable = true;
+
+
+function log(fileName, contents){
+var content = "";
+for(var i = 0; i < contents.length; i++){
+	content+=contents[i];
+if(i < contents.length - 1){
+	content += ",";
+}
+}
+fs.appendFileSync(fileName, content+"\n");
+
+}
+
+
+
 
 function startCapture(){
 started = true;
@@ -73,16 +90,18 @@ var protocolNum = packet.protocol;
 if(protocolNum == 6 || protocolNum == 17){
 	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.payload.sport.toString(), packet.payload.dport.toString(), packet.protocol.toString()]
 	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.protocol.toString()]
+	var packetinfo = ["", new Date(Date.now()), flowInfo[0], flowInfo[1], flowInfo[2], packet.payload.sport.toString(), packet.payload.dport.toString(),];
 }else{
 	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0','0' ]; 
-	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0' ]; 
-
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0']; 
+	var packetinfo = ["", new Date(Date.now()), flowInfo[0], flowInfo[1], flowInfo[2], '0', '0' ];
 }
 var flowId = flowInfo.join('-');
 console.log("flowId : "+flowId);
 //console.log("packet : "+nfPacket.payload);
 console.log("which packet ? : "+results[flowId]);
 result = results[flowId];
+packetinfo[0] = (result === undefined) ? "Unknown" : result;
 if(result == "Benign" || result === undefined){
 nfPacket.setVerdict(nfq.NF_ACCEPT);
 
@@ -90,6 +109,9 @@ nfPacket.setVerdict(nfq.NF_ACCEPT);
 else{
 nfPacket.setVerdict(nfq.NF_ACCEPT);
 }
+
+log(csvFileName, packetinfo);
+
 }
 });
 
