@@ -1,9 +1,9 @@
 <template>
   <div>
-    <h1>Network Interfaces</h1>
-    <div v-for="interfaceName in interfaces" :key="interfaceName">
-      {{ interfaceName }}
-    </div>
+    <h1><b>Network Interfaces</b></h1>
+    <h3 v-for="interfaceName in interfaces" :key="interfaceName">
+      - {{ interfaceName }}
+    </h3>
   </div>
 </template>
 

@@ -37,17 +37,17 @@
         v-for="(hit, index) in filteredHitsWithoutMissingSrcIp"
         :key="index"
         :class="{
-          'table-drop': hit._source.message.event_type === 'drop',
-          'table-alert': hit._source.message.event_type === 'alert',
+          'table-drop': hit._source.data.event_type === 'drop',
+          'table-alert': hit._source.data.event_type === 'alert',
         }"
       >
-        <td>{{ hit._source.message.timestamp }}</td>
-        <td>{{ hit._source.message.src_ip }}</td>
-        <td>{{ hit._source.message.dest_ip }}</td>
-        <td>{{ hit._source.message.proto }}</td>
+        <td>{{ hit._source.data.timestamp }}</td>
+        <td>{{ hit._source.data.src_ip }}</td>
+        <td>{{ hit._source.data.dest_ip }}</td>
+        <td>{{ hit._source.data.proto }}</td>
         <!-- <td>{{ hit._source.message.flow }}</td> -->
-        <td>{{ hit._source.message.src_port }}</td>
-        <td>{{ hit._source.message.dest_port }}</td>
+        <td>{{ hit._source.data.src_port }}</td>
+        <td>{{ hit._source.data.dest_port }}</td>
       </tr>
     </tbody>
     <tbody v-else>
@@ -67,17 +67,30 @@ export default {
       hits: [], // Initialize the hits data
       startDatetime: "",
       endDatetime: "",
+      intervalId: null, // Variable to store the interval ID
     };
   },
   created() {
-    this.fetchHits(); // Call the fetchHits method when the component is created
+    this.startHitsInterval(); // Start the interval when the component is created
   },
   computed: {
     filteredHitsWithoutMissingSrcIp() {
-      return this.hits.filter((hit) => hit._source.message.src_ip);
+      return this.hits.filter((hit) => hit._source.data.src_ip);
     },
   },
   methods: {
+    startHitsInterval() {
+      this.fetchHits(); // Call fetchHits initially
+
+      // Set interval to call fetchHits every 2 seconds
+      this.intervalId = setInterval(() => {
+        this.fetchHits();
+      }, 2000);
+    },
+    stopHitsInterval() {
+      clearInterval(this.intervalId); // Clear the interval
+      //console.log("clear", this.intervalId);
+    },
     fetchHits() {
       axios
         .get("http://localhost:8080/api/hitsjson")
@@ -87,8 +100,11 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+      //console.log("set", this.intervalId);
     },
     fetchHitsDuration() {
+      this.stopHitsInterval(); // Stop the interval when fetchHitsDuration is called
+
       axios
         .get("http://localhost:8080/api/hitsjson_duration", {
           params: {

@@ -94,9 +94,38 @@ app.get("/api/hitsjson", (req, res) => {
   client
     .search({
       index: "network-log",
-      q: "tags:json",
-      sort: "message.timestamp:desc",
       size: 100,
+      body: {
+        sort: [
+          {
+            "data.timestamp": {
+              order: "desc",
+            },
+          },
+        ],
+        query: {
+          bool: {
+            filter: [
+              {
+                match: {
+                  tags: "json",
+                },
+              },
+              {
+                bool: {
+                  must_not: [
+                    {
+                      term: {
+                        "data.src_ip": "127.0.0.1",
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
     })
     .then((response) => {
       // Elasticsearch로부터의 응답 처리
@@ -119,10 +148,11 @@ app.get("/api/hitsjson_duration", (req, res) => {
   client
     .search({
       index: "network-log",
+      size: 100,
       body: {
         sort: [
           {
-            "message.timestamp": {
+            "data.timestamp": {
               order: "desc",
             },
           },
@@ -136,8 +166,19 @@ app.get("/api/hitsjson_duration", (req, res) => {
                 },
               },
               {
+                bool: {
+                  must_not: [
+                    {
+                      term: {
+                        "data.src_ip": "127.0.0.1",
+                      },
+                    },
+                  ],
+                },
+              },
+              {
                 range: {
-                  "message.timestamp": {
+                  "data.timestamp": {
                     gte: gte,
                     lte: lte,
                   },
@@ -165,6 +206,7 @@ app.get("/api/hitscsv", (req, res) => {
   client
     .search({
       index: "network-log",
+      size: 100,
       q: "tags:csv",
     })
     .then((response) => {
@@ -188,10 +230,11 @@ app.get("/api/hitscsv_duration", (req, res) => {
   client
     .search({
       index: "network-log",
+      size: 100,
       body: {
         sort: [
           {
-            "@timestamp": {
+            "data.timestamp": {
               order: "desc",
             },
           },
@@ -206,7 +249,7 @@ app.get("/api/hitscsv_duration", (req, res) => {
               },
               {
                 range: {
-                  "@timestamp": {
+                  "data.timestamp": {
                     gte: gte,
                     lte: lte,
                   },
@@ -219,7 +262,7 @@ app.get("/api/hitscsv_duration", (req, res) => {
     })
     .then((response) => {
       const hits = response.hits.hits;
-      //console.log(hits); // Print data to the console for verification
+      console.log(hits); // Print data to the console for verification
 
       res.json(hits); // Respond with data in JSON format
     })
