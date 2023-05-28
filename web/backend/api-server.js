@@ -24,13 +24,6 @@ app.get("/api/hitsjson", (req, res) => {
       index: "network-log",
       size: 100,
       body: {
-        sort: [
-          {
-            "data.timestamp": {
-              order: "desc",
-            },
-          },
-        ],
         query: {
           bool: {
             filter: [
@@ -78,13 +71,6 @@ app.get("/api/hitsjson_duration", (req, res) => {
       index: "network-log",
       size: 100,
       body: {
-        sort: [
-          {
-            "data.timestamp": {
-              order: "desc",
-            },
-          },
-        ],
         query: {
           bool: {
             filter: [
@@ -160,13 +146,6 @@ app.get("/api/hitscsv_duration", (req, res) => {
       index: "network-log",
       size: 100,
       body: {
-        sort: [
-          {
-            "data.timestamp": {
-              order: "desc",
-            },
-          },
-        ],
         query: {
           bool: {
             filter: [
