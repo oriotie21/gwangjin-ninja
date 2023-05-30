@@ -67,11 +67,16 @@
   </table>
   <div v-if="selectedHit" class="side-view">
     <button class="close-button" @click="closeSideView">Close</button>
+    <p></p>
     <h3>
       <b>{{ selectedHit._source.data.src_ip }}</b>
     </h3>
-    <p>Timestamp: {{ selectedHit._source.data.timestamp }}</p>
-    <p>Destination IP: {{ selectedHit._source.data.dest_ip }}</p>
+    <p>
+      <b>Timestamp: {{ selectedHit._source.data.timestamp }}</b>
+    </p>
+    <p>
+      <b>Destination IP: {{ selectedHit._source.data.dest_ip }}</b>
+    </p>
   </div>
 </template>
 
@@ -120,6 +125,19 @@ export default {
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
           this.hits = response.data; // Update the hits data in the component
+          const newHits = response.data;
+
+          // Check for "drop" or "alert" event type
+          const hasEventType = newHits.some(
+            (hit) =>
+              hit._source.data.event_type === "drop" ||
+              hit._source.data.event_type === "alert"
+          );
+
+          if (hasEventType) {
+            this.showInternetNotification(); // Display internet notification
+          }
+          this.hits = newHits;
         })
         .catch((error) => {
           console.error(error);
@@ -146,6 +164,20 @@ export default {
     generateItems() {
       this.fetchHitsDuration();
     },
+    showInternetNotification() {
+      // Check if the Notification API is supported
+      if ("Notification" in window) {
+        // Request permission to display notifications
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            // Create a notification
+            new Notification("GWANGJININJA Alert", {
+              body: "Attack Occured!.",
+            });
+          }
+        });
+      }
+    },
   },
 };
 </script>
@@ -163,9 +195,9 @@ export default {
   right: 0;
   width: 500px;
   height: 100%;
-  background-color: #2f8cb8;
+  background-color: #76acc7;
   padding: 20px;
-  box-shadow: 0 0 10px #2f8cb8;
+  box-shadow: 0 0 10px #76acc7;
   overflow-y: auto;
   transition: all 0.3s;
 }

@@ -7,7 +7,7 @@ import TimetableForm from "./components/Timetable.vue";
 
 const routes = [
   {
-    path: "/main",
+    path: "/interface",
     component: MainInterfaceForm,
   },
   {
