@@ -95,7 +95,22 @@ def read_items():
     y_pred = loaded_model.predict(X_new)
 
 # Convert the one-hot encoded predicted labels back to their original form
-    y_pred_labels = loaded_encoder.inverse_transform(y_pred).tolist()
-    y_pred_labels = ["".join(item) for item in y_pred_labels]
+
+    y_pred_labels = y_pred.tolist()
+    y_pred_labels = np.argmax(y_pred, axis=1)
+    """
+    y_pred_labels_num = []
+    for item in y_pred_labels:
+        max = 0
+        for i in range(0,len(item)):
+            if(item[i] > item[max]):
+                max = i
+        y_pred_labels_num.append(str(i))
+    """
+
+    y_pred_labels = ["".join(str(item)) for item in y_pred_labels]
+    
+
+
     #print(y_pred_labels)
     return {"predictions" : str(y_pred_labels)}
