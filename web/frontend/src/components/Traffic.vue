@@ -240,6 +240,22 @@ export default {
           console.error(error);
         });
     },
+    fetchHitsDurationCsv() {
+      this.stopHitsInterval();
+      axios
+        .get("http://localhost:8080/api/hitscsv_duration", {
+          params: {
+            lte: this.endDatetime,
+            gte: this.startDatetime,
+          },
+        })
+        .then((response) => {
+          this.csvhits = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     generateItems() {
       this.fetchHitsDuration();
     },
