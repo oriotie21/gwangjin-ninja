@@ -124,17 +124,16 @@ export default {
       axios
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
-          this.hits = response.data; // Update the hits data in the component
           const newHits = response.data;
 
-          // Check for "drop" or "alert" event type
-          const hasEventType = newHits.some(
-            (hit) =>
-              hit._source.data.event_type === "drop" ||
-              hit._source.data.event_type === "alert"
-          );
+          // Check for new events by comparing with existing hits
+          const isNewEvent = newHits.some((newHit) => {
+            return !this.hits.some((existingHit) => {
+              return newHit._id === existingHit._id;
+            });
+          });
 
-          if (hasEventType) {
+          if (isNewEvent) {
             this.showInternetNotification(); // Display internet notification
           }
           this.hits = newHits;
