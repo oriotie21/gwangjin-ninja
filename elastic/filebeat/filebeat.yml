@@ -1,6 +1,7 @@
 filebeat.inputs:
 - type: log
   enabled: true
+  id: json-harvester
   paths:
     - "/var/logs/beats/suricata/*.json"
   tags: ["json", "suricata"]
