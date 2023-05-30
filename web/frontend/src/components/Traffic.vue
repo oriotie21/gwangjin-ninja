@@ -114,7 +114,7 @@ export default {
       // Set interval to call fetchHits every 2 seconds
       this.intervalId = setInterval(() => {
         this.fetchHits();
-      }, 2000);
+      }, 1000);
     },
     stopHitsInterval() {
       clearInterval(this.intervalId); // Clear the interval
