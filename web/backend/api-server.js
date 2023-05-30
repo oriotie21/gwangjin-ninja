@@ -160,7 +160,7 @@ app.get("/api/hitscsv", (req, res) => {
     })
     .then((response) => {
       // Elasticsearch로부터의 응답 처리
-      //const hits = response.hits.hits;
+      const hits = response.hits.hits;
       console.log(hits); // 데이터 확인을 위해 콘솔에 출력
 
       res.json(hits); // JSON 형식으로 데이터 응답

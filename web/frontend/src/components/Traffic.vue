@@ -35,28 +35,23 @@
         <th>Source IP</th>
         <th>Dest IP</th>
         <th>Protocol</th>
-        <!-- <th>Length</th> -->
         <th>Source Port</th>
         <th>Dest Port</th>
       </tr>
     </thead>
-    <tbody v-if="hits.length > 0">
+    <tbody v-if="filteredHits.length > 0">
       <tr
-        v-for="(hit, index) in filteredHitsWithoutMissingSrcIp"
+        v-for="(hit, index) in filteredHits"
         :key="index"
-        :class="{
-          'table-drop': hit._source.data.event_type === 'drop',
-          'table-alert': hit._source.data.event_type === 'alert',
-        }"
+        :class="getTableClass(hit)"
         @dblclick="showDetails(hit)"
       >
         <td>{{ hit._source.data.timestamp }}</td>
         <td>{{ hit._source.data.src_ip }}</td>
-        <td>{{ hit._source.data.dest_ip }}</td>
-        <td>{{ hit._source.data.proto }}</td>
-        <!-- <td>{{ hit._source.message.flow }}</td> -->
+        <td>{{ hit._source.data.dest_ip || hit._source.data.dst_ip }}</td>
+        <td>{{ hit._source.data.proto || getProtocol(hit) }}</td>
         <td>{{ hit._source.data.src_port }}</td>
-        <td>{{ hit._source.data.dest_port }}</td>
+        <td>{{ hit._source.data.dest_port || hit._source.data.dst_port }}</td>
       </tr>
     </tbody>
     <tbody v-else>
@@ -82,23 +77,52 @@
 
 <script>
 import axios from "axios";
+const protocolEnum = {
+  1: "ICMP",
+  6: "TCP",
+  17: "UDP",
+  41: "IPv6",
+  50: "ESP",
+  58: "ICMPv6",
+  89: "OSPF",
+};
+
 export default {
   name: "TrafficForm",
   data() {
     return {
       selectedHit: null,
-      hits: [], // Initialize the hits data
+      hits: [],
+      csvhits: [],
       startDatetime: "",
       endDatetime: "",
-      intervalId: null, // Variable to store the interval ID
+      intervalId: null,
     };
   },
   created() {
-    this.startHitsInterval(); // Start the interval when the component is created
+    this.startHitsInterval();
   },
   computed: {
-    filteredHitsWithoutMissingSrcIp() {
-      return this.hits.filter((hit) => hit._source.data.src_ip);
+    filteredHits() {
+      const allHits = [...this.hits, ...this.csvhits];
+      // Sort allHits by timestamp in descending order
+      allHits.sort((a, b) => {
+        const timestampA = new Date(a._source.data.timestamp);
+        const timestampB = new Date(b._source.data.timestamp);
+        return timestampB - timestampA;
+      });
+      return allHits.filter((hit) => hit._source.data.src_ip);
+    },
+    getProtocol() {
+      return (hit) => {
+        const protocol = hit._source.data.protocol;
+        console.log(protocol);
+        if (protocol in protocolEnum) {
+          return protocolEnum[protocol];
+        } else {
+          return protocol;
+        }
+      };
     },
   },
   methods: {
@@ -106,46 +130,41 @@ export default {
       this.selectedHit = hit;
     },
     closeSideView() {
-      this.selectedHit = null; // 사이드뷰를 닫을 때 selectedHit을 null로 설정합니다.
+      this.selectedHit = null;
     },
     startHitsInterval() {
-      this.fetchHits(); // Call fetchHits initially
-
-      // Set interval to call fetchHits every 2 seconds
+      this.fetchHits();
+      this.fetchHitsCsv();
       this.intervalId = setInterval(() => {
         this.fetchHits();
+        this.fetchHitsCsv();
       }, 1000);
     },
     stopHitsInterval() {
-      clearInterval(this.intervalId); // Clear the interval
-      //console.log("clear", this.intervalId);
+      clearInterval(this.intervalId);
     },
     fetchHits() {
       axios
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
-          const newHits = response.data;
-
-          // Check for new events by comparing with existing hits
-          const isNewEvent = newHits.some((newHit) => {
-            return !this.hits.some((existingHit) => {
-              return newHit._id === existingHit._id;
-            });
-          });
-
-          if (isNewEvent) {
-            this.showInternetNotification(); // Display internet notification
-          }
-          this.hits = newHits;
+          this.hits = response.data;
         })
         .catch((error) => {
           console.error(error);
         });
-      //console.log("set", this.intervalId);
+    },
+    fetchHitsCsv() {
+      axios
+        .get("http://localhost:8080/api/hitscsv")
+        .then((response) => {
+          this.csvhits = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     fetchHitsDuration() {
-      this.stopHitsInterval(); // Stop the interval when fetchHitsDuration is called
-
+      this.stopHitsInterval();
       axios
         .get("http://localhost:8080/api/hitsjson_duration", {
           params: {
@@ -164,18 +183,25 @@ export default {
       this.fetchHitsDuration();
     },
     showInternetNotification() {
-      // Check if the Notification API is supported
       if ("Notification" in window) {
-        // Request permission to display notifications
         Notification.requestPermission().then((permission) => {
           if (permission === "granted") {
-            // Create a notification
             new Notification("GWANGJININJA Alert", {
-              body: "Attack Occured!",
+              body: "Attack Occurred!",
             });
           }
         });
       }
+    },
+    getTableClass(hit) {
+      if (hit._source.data.rst == 1) {
+        return "";
+      } else if (hit._source.data.event_type === "drop") {
+        return "table-drop";
+      } else if (hit._source.data.event_type === "alert") {
+        return "table-alert";
+      }
+      return "";
     },
   },
 };
@@ -202,9 +228,9 @@ export default {
 }
 .close-button {
   margin-top: 10px;
-  float: right; /* 버튼을 오른쪽에 배치합니다 */
+  float: right;
   background-color: rgb(27, 68, 112);
-  color: white; /* 텍스트 색상을 원하는 색상으로 설정합니다 */
+  color: white;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
