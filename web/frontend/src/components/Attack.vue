@@ -34,6 +34,7 @@ export default {
         ["BruteForce_XSS", 0],
         ["DDOS_attack_HOIC", 0],
         ["DDOS_attack_LOIC_UDP", 0],
+        ["DDOS_attack_sim", 0],
         ["DDoS_attacks_LOIC_HTTP", 0],
         ["DoS_attacks_GoldenEye", 0],
         ["DoS_attacks_Hulk", 0],
@@ -76,20 +77,19 @@ export default {
       axios
         .get("http://localhost:8080/api/hitscsv_duration", {
           params: {
-            lte:
-              new Date(new Date().getTime() + 9 * 60 * 60 * 1000)
-                .toISOString()
-                .slice(0, 19) + ".999999+0900",
-            gte:
-              new Date(
-                new Date().getTime() + 9 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000
-              )
-                .toISOString()
-                .slice(0, 19) + ".000000+0900",
+            lte: new Date(new Date().getTime() + 9 * 60 * 60 * 1000)
+              .toISOString()
+              .slice(0, 19),
+            gte: new Date(
+              new Date().getTime() + 9 * 60 * 60 * 1000 - 24 * 60 * 60 * 1000
+            )
+              .toISOString()
+              .slice(0, 19),
           },
         })
         .then((response) => {
           const data = response.data; // Update the hits data in the component
+          console.log(data);
           data.forEach((data) => {
             console.log(data._source.data.src_ip);
             this.fetchCountry(data._source.data.src_ip);
@@ -104,6 +104,7 @@ export default {
             BruteForce_XSS: 0,
             DDOS_attack_HOIC: 0,
             DDOS_attack_LOIC_UDP: 0,
+            DDOS_attack_sim: 0,
             DDoS_attacks_LOIC_HTTP: 0,
             DoS_attacks_GoldenEye: 0,
             DoS_attacks_Hulk: 0,
@@ -117,43 +118,45 @@ export default {
 
           // Iterate through hits and sum the hours for each category
           this.hits.forEach((hit) => {
-            const label = hit._source.data.label;
-
-            if (label === "Benign") {
+            let label = hit._source.data.status;
+            console.log(label);
+            if (label == 0) {
               total.Benign += 1;
-            } else if (label === "Bot") {
+            } else if (label == 1) {
               total.Bot += 1;
-            } else if (label === "BruteForce_Web") {
+            } else if (label === 2) {
               total.BruteForce_Web += 1;
-            } else if (label === "BruteForce_XSS") {
+            } else if (label == 3) {
               total.BruteForce_XSS += 1;
-            } else if (label === "DDOS_attack_HOIC") {
+            } else if (label == 4) {
               total.DDOS_attack_HOIC += 1;
-            } else if (label === "DDOS_attack_LOIC_UDP") {
+            } else if (label == 5) {
               total.DDOS_attack_LOIC_UDP += 1;
-            } else if (label === "DDoS_attacks_LOIC_HTTP") {
+            } else if (label == 6) {
+              total.DDOS_attack_sim += 1;
+            } else if (label == 7) {
               total.DDoS_attacks_LOIC_HTTP += 1;
-            } else if (label === "DoS_attacks_GoldenEye") {
+            } else if (label == 8) {
               total.DoS_attacks_GoldenEye += 1;
-            } else if (label === "DoS_attacks_Hulk") {
+            } else if (label == 9) {
               total.DoS_attacks_Hulk += 1;
-            } else if (label === "DoS_attacks_SlowHTTPTest") {
+            } else if (label == 10) {
               total.DoS_attacks_SlowHTTPTest += 1;
-            } else if (label === "DoS_attacks_Slowloris") {
+            } else if (label == 11) {
               total.DoS_attacks_Slowloris += 1;
-            } else if (label === "FTP_BruteForce") {
+            } else if (label == 12) {
               total.FTP_BruteForce += 1;
-            } else if (label === "Infilteration") {
+            } else if (label == 13) {
               total.Infilteration += 1;
-            } else if (label === "SQLInjection") {
+            } else if (label == 14) {
               total.SQLInjection += 1;
-            } else if (label === "SSH_Bruteforce") {
+            } else if (label == 15) {
               total.SSH_Bruteforce += 1;
             }
           });
 
           // Update the data array with updated hour values
-          for (let i = 1; i < this.data.length; i++) {
+          for (let i = 1; i < this.data.length - 1; i++) {
             const attack = Object.keys(total)[i - 1];
             this.data[i + 1][1] = total[attack];
           }

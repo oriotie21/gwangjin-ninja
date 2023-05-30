@@ -171,7 +171,7 @@ export default {
           if (permission === "granted") {
             // Create a notification
             new Notification("GWANGJININJA Alert", {
-              body: "Attack Occured!.",
+              body: "Attack Occured!",
             });
           }
         });

@@ -105,97 +105,103 @@ export default {
       },
       {
         label: "Benign",
-        data: await this.generateData("Benign"),
+        data: await this.generateData(0),
         backgroundColor: "#DBDFEA",
         stack: "stacked",
       },
       {
         label: "Bot",
-        data: await this.generateData("Bot"),
+        data: await this.generateData(1),
         backgroundColor: "#ACB1D6",
         stack: "stacked",
       },
       {
         label: "BruteForce_Web",
-        data: await this.generateData("BruteForce_Web"),
+        data: await this.generateData(2),
         backgroundColor: "#8294C4",
         stack: "stacked",
       },
       {
         label: "BruteForce_XSS",
-        data: await this.generateData("BruteForce_XSS"),
+        data: await this.generateData(3),
         backgroundColor: "#DBDFEA",
         stack: "stacked",
       },
       {
         label: "DDOS_attack_HOIC",
-        data: await this.generateData("DDOS_attack_HOIC"),
+        data: await this.generateData(4),
         backgroundColor: "#ACB1D6",
         stack: "stacked",
       },
       {
         label: "DDOS_attack_LOIC_UDP",
-        data: await this.generateData("DDOS_attack_LOIC_UDP"),
+        data: await this.generateData(5),
         backgroundColor: "#8294C4",
         stack: "stacked",
       },
       {
+        label: "DDOS_attack_LOIC_UDP",
+        data: await this.generateData(6),
+        backgroundColor: "#ACB1D6",
+        stack: "stacked",
+      },
+      {
         label: "DDoS_attacks_LOIC_HTTP",
-        data: await this.generateData("DDoS_attacks_LOIC_HTTP"),
+        data: await this.generateData(7),
         backgroundColor: "#DBDFEA",
         stack: "stacked",
       },
       {
         label: "DoS_attacks_GoldenEye",
-        data: await this.generateData("DoS_attacks_GoldenEye"),
+        data: await this.generateData(8),
         backgroundColor: "#ACB1D6",
         stack: "stacked",
       },
       {
         label: "DoS_attacks_Hulk",
-        data: await this.generateData("DoS_attacks_Hulk"),
+        data: await this.generateData(9),
         backgroundColor: "#8294C4",
         stack: "stacked",
       },
       {
         label: "DoS_attacks_SlowHTTPTest",
-        data: await this.generateData("DoS_attacks_SlowHTTPTest"),
+        data: await this.generateData(10),
         backgroundColor: "#DBDFEA",
         stack: "stacked",
       },
       {
         label: "DoS_attacks_Slowloris",
-        data: await this.generateData("DoS_attacks_Slowloris"),
+        data: await this.generateData(11),
         backgroundColor: "#ACB1D6",
         stack: "stacked",
       },
       {
         label: "FTP_BruteForce",
-        data: await this.generateData("FTP_BruteForce"),
+        data: await this.generateData(12),
         backgroundColor: "#8294C4",
         stack: "stacked",
       },
       {
         label: "Infilteration",
-        data: await this.generateData("Infilteration"),
+        data: await this.generateData(13),
         backgroundColor: "#DBDFEA",
         stack: "stacked",
       },
       {
         label: "SQLInjection",
-        data: await this.generateData("SQLInjection"),
+        data: await this.generateData(14),
         backgroundColor: "#ACB1D6",
         stack: "stacked",
       },
       {
         label: "SSH_Bruteforce",
-        data: await this.generateData("SSH_Bruteforce"),
+        data: await this.generateData(15),
         backgroundColor: "#8294C4",
         stack: "stacked",
       },
     ];
 
-    for (let i = 0; i < 16; i++) {
+    for (let i = 0; i < 17; i++) {
       for (let j = 0; j < this.BarchartData.labels.length; j++) {
         this.chartdata.datasets[0].data[j] +=
           this.BarchartData.datasets[i].data[j];
@@ -212,19 +218,20 @@ export default {
     }
   },
   methods: {
-    async generateData(label) {
+    async generateData(index) {
       const data = [];
       for (let i = 11; i >= 0; i--) {
         let count = 0;
         await this.fetchHits(i);
         if (this.hits) {
           this.hits.forEach((hit) => {
-            if (hit._source.data.label === label) {
+            if (hit._source.data.status === index) {
               count++;
             }
           });
         }
         data.push(count);
+        console.log(data);
       }
       return data;
     },
@@ -252,13 +259,13 @@ export default {
                   new Date().setMonth(new Date().getMonth() - minusmonth)
                 )
                   .toISOString()
-                  .slice(0, 8) + "31T23:59:59.999999+0900",
+                  .slice(0, 8) + "31T23:59:59",
               gte:
                 new Date(
                   new Date().setMonth(new Date().getMonth() - minusmonth)
                 )
                   .toISOString()
-                  .slice(0, 8) + "01T00:00:00.000000+0900",
+                  .slice(0, 8) + "01T00:00:00",
             },
           })
           .then((response) => {
