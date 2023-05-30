@@ -150,3 +150,31 @@
 29/5/2023 -- 01:52:47 - <Info> - Running in live mode, activating unix socket
 29/5/2023 -- 01:52:47 - <Info> - Using unix socket file '/var/suricata-command.socket'
 29/5/2023 -- 01:52:47 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+29/5/2023 -- 02:36:46 - <Notice> - Signal Received.  Stopping engine.
+29/5/2023 -- 02:36:47 - <Info> - time elapsed 2639.352s
+29/5/2023 -- 02:36:47 - <Notice> - (RX-NFQ#0) Treated: Pkts 1106, Bytes 133235, Errors 0
+29/5/2023 -- 02:36:47 - <Notice> - (RX-NFQ#0) Verdict: Accepted 576, Dropped 530, Replaced 0
+29/5/2023 -- 02:36:48 - <Info> - Alerts: 2
+29/5/2023 -- 02:36:48 - <Info> - cleaning up signature grouping structure... complete
+29/5/2023 -- 02:36:51 - <Notice> - This is Suricata version 6.0.4 RELEASE running in SYSTEM mode
+29/5/2023 -- 02:36:51 - <Info> - CPUs/cores online: 16
+29/5/2023 -- 02:36:52 - <Info> - NFQ running in route mode with next queue 1
+29/5/2023 -- 02:36:52 - <Info> - fast output device (regular) initialized: fast.log
+29/5/2023 -- 02:36:52 - <Info> - eve-log output device (regular) initialized: eve.json
+29/5/2023 -- 02:36:52 - <Info> - stats output device (regular) initialized: stats.log
+29/5/2023 -- 02:36:52 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 02:36:52 - <Info> - 1 rule files processed. 1 rules successfully loaded, 0 rules failed
+29/5/2023 -- 02:36:52 - <Info> - Threshold config parsed: 0 rule(s) found
+29/5/2023 -- 02:36:52 - <Info> - 1 signatures processed. 1 are IP-only rules, 0 are inspecting packet payload, 0 inspect application layer, 0 are decoder event only
+29/5/2023 -- 02:36:52 - <Info> - binding this thread 0 to queue '0'
+29/5/2023 -- 02:36:52 - <Info> - setting queue length to 4096
+29/5/2023 -- 02:36:52 - <Info> - setting nfnl bufsize to 6144000
+29/5/2023 -- 02:36:52 - <Info> - Running in live mode, activating unix socket
+29/5/2023 -- 02:36:52 - <Info> - Using unix socket file '/var/suricata-command.socket'
+29/5/2023 -- 02:36:52 - <Notice> - all 18 packet processing threads, 4 management threads initialized, engine started.
+29/5/2023 -- 03:12:12 - <Notice> - Signal Received.  Stopping engine.
+29/5/2023 -- 03:12:12 - <Info> - time elapsed 2120.823s
+29/5/2023 -- 03:12:12 - <Notice> - (RX-NFQ#0) Treated: Pkts 4308, Bytes 1818959, Errors 0
+29/5/2023 -- 03:12:12 - <Notice> - (RX-NFQ#0) Verdict: Accepted 4135, Dropped 173, Replaced 0
+29/5/2023 -- 03:12:13 - <Info> - Alerts: 1
+29/5/2023 -- 03:12:13 - <Info> - cleaning up signature grouping structure... complete

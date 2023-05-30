@@ -74,7 +74,7 @@ function request(curlCommand) {
 	prediction_list = prediction_list.split(',');
 	for(var i=0; i<prediction_list.length; i++){
 		results[flowIds[i]] = prediction_list[i];
-		fs.appendFileSync(fileName, flowIds[i]+","+prediction_list[i]+"\n");
+		//fs.appendFileSync(fileName, flowIds[i]+","+prediction_list[i]+"\n");
 	}
 
 
