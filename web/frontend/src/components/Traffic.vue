@@ -20,7 +20,15 @@
     </div>
   </div>
 
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered table-resizable">
+    <colgroup>
+      <col style="width: 20%" />
+      <col style="width: 15%" />
+      <col style="width: 15%" />
+      <col style="width: 15%" />
+      <col style="width: 10%" />
+      <col style="width: 10%" />
+    </colgroup>
     <thead>
       <tr>
         <th>Timestamp</th>
@@ -40,6 +48,7 @@
           'table-drop': hit._source.data.event_type === 'drop',
           'table-alert': hit._source.data.event_type === 'alert',
         }"
+        @dblclick="showDetails(hit)"
       >
         <td>{{ hit._source.data.timestamp }}</td>
         <td>{{ hit._source.data.src_ip }}</td>
@@ -56,6 +65,14 @@
       </tr>
     </tbody>
   </table>
+  <div v-if="selectedHit" class="side-view">
+    <button class="close-button" @click="closeSideView">Close</button>
+    <h3>
+      <b>{{ selectedHit._source.data.src_ip }}</b>
+    </h3>
+    <p>Timestamp: {{ selectedHit._source.data.timestamp }}</p>
+    <p>Destination IP: {{ selectedHit._source.data.dest_ip }}</p>
+  </div>
 </template>
 
 <script>
@@ -64,6 +81,7 @@ export default {
   name: "TrafficForm",
   data() {
     return {
+      selectedHit: null,
       hits: [], // Initialize the hits data
       startDatetime: "",
       endDatetime: "",
@@ -79,6 +97,12 @@ export default {
     },
   },
   methods: {
+    showDetails(hit) {
+      this.selectedHit = hit;
+    },
+    closeSideView() {
+      this.selectedHit = null; // 사이드뷰를 닫을 때 selectedHit을 null로 설정합니다.
+    },
     startHitsInterval() {
       this.fetchHits(); // Call fetchHits initially
 
@@ -132,5 +156,29 @@ export default {
 }
 .table-alert {
   background-color: yellow;
+}
+.side-view {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 100%;
+  background-color: #2f8cb8;
+  padding: 20px;
+  box-shadow: 0 0 10px #2f8cb8;
+  overflow-y: auto;
+  transition: all 0.3s;
+}
+.close-button {
+  margin-top: 10px;
+  float: right; /* 버튼을 오른쪽에 배치합니다 */
+  background-color: rgb(27, 68, 112);
+  color: white; /* 텍스트 색상을 원하는 색상으로 설정합니다 */
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.table-resizable {
+  width: 1400px !important;
 }
 </style>
