@@ -4,6 +4,7 @@ const fs = require('fs');
 const {exec, execFile, spawn} = require('child_process');
 const recognizer = require('./recognizer');
 const Queue = require('./queue');
+const date = require('date-and-time');
 const nfq = require('nfqueue');
 const NFQUEUE_NUM = 2;
 const csvFileName = "/home/oriotie/gwangjin_ninja/elastic/logs/ml/0519_test.csv";
@@ -15,7 +16,12 @@ var collectable = true;
 
 
 function log(fileName, contents){
+
 var content = "";
+
+if (!fs.existsSync(fileName)) {
+//	content +=  "Status,Timestamp,Source IP,Dest IP,Protocol,Source Port,Dest Port\n";
+}
 for(var i = 0; i < contents.length; i++){
 	content+=contents[i];
 if(i < contents.length - 1){
@@ -90,18 +96,18 @@ var protocolNum = packet.protocol;
 if(protocolNum == 6 || protocolNum == 17){
 	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.payload.sport.toString(), packet.payload.dport.toString(), packet.protocol.toString()]
 	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.protocol.toString()]
-	var packetinfo = ["", new Date(Date.now()), flowInfo[0], flowInfo[1], flowInfo[2], packet.payload.sport.toString(), packet.payload.dport.toString(),];
+	var packetinfo = ["", date.format(new Date(),'DD/MM/YYYY HH:mm:ss') , flowInfo[0], flowInfo[1], flowInfo[2], packet.payload.sport.toString(), packet.payload.dport.toString(),];
 }else{
 	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0','0' ]; 
 	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0']; 
-	var packetinfo = ["", new Date(Date.now()), flowInfo[0], flowInfo[1], flowInfo[2], '0', '0' ];
+	var packetinfo = ["", date.format(new Date(),'DD/MM/YYYY HH:mm:ss'), flowInfo[0], flowInfo[1], flowInfo[2], '0', '0' ];
 }
 var flowId = flowInfo.join('-');
 console.log("flowId : "+flowId);
 //console.log("packet : "+nfPacket.payload);
 console.log("which packet ? : "+results[flowId]);
 result = results[flowId];
-packetinfo[0] = (result === undefined) ? "Unknown" : result;
+packetinfo[0] = (result === undefined) ? "0" : result;
 if(result == "Benign" || result === undefined){
 nfPacket.setVerdict(nfq.NF_ACCEPT);
 

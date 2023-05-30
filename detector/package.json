@@ -28,6 +28,7 @@
   ],
   "dependencies": {
     "@tensorflow/tfjs": "^4.4.0",
+    "date-and-time": "^3.0.0",
     "moment": "^2.29.4",
     "nan": "^2.15.0",
     "nfqueue": "^0.3.2",
