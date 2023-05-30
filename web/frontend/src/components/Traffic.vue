@@ -109,7 +109,7 @@
 <script>
 import axios from "axios";
 const protocolEnum = {
-  1: "ICMP",
+  0: "ICMP",
   6: "TCP",
   17: "UDP",
   41: "IPv6",
@@ -261,6 +261,8 @@ export default {
         return "table-drop";
       } else if (hit._source.data.event_type === "alert") {
         return "table-alert";
+      } else if (!hit._source.data.event_type && hit._source.data.status != 0) {
+        return "table-attack";
       }
       return "";
     },
@@ -274,6 +276,9 @@ export default {
 }
 .table-alert {
   background-color: yellow;
+}
+.table-attack {
+  background-color: rgb(253, 186, 227);
 }
 .side-view {
   position: fixed;
