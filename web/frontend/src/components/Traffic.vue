@@ -237,11 +237,16 @@ export default {
         .then((response) => {
           const newCsvHits = response.data;
           const isNewEvent = newCsvHits.some((newHit) => {
-            return newHit._source.data.status != 0;
+            return !this.hits.some((existingHit) => {
+              return newHit._id === existingHit._id;
+            });
           });
 
           if (isNewEvent) {
-            this.showInternetNotificationCsv(); // Display internet notification
+            const isNewEvent2 = newCsvHits.some((newHit) => {
+              return newHit._source.data.status != 0;
+            });
+            if (isNewEvent2) this.showInternetNotificationCsv(); // Display internet notification
           }
           // Combine new csv hits with existing csv hits and sort by timestamp
           this.csvhits = [...this.csvhits, ...newCsvHits].sort((a, b) => {
