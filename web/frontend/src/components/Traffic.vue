@@ -35,15 +35,19 @@
         <th>Source IP</th>
         <th>Dest IP</th>
         <th>Protocol</th>
+        <!-- <th>Length</th> -->
         <th>Source Port</th>
         <th>Dest Port</th>
       </tr>
     </thead>
-    <tbody v-if="filteredHits.length > 0">
+    <tbody v-if="allhits.length > 0">
       <tr
-        v-for="(hit, index) in filteredHits"
+        v-for="(hit, index) in allhits"
         :key="index"
-        :class="getTableClass(hit)"
+        :class="{
+          'table-drop': hit._source.data.event_type === 'drop',
+          'table-alert': hit._source.data.event_type === 'alert',
+        }"
         @dblclick="showDetails(hit)"
       >
         <td>{{ hit._source.data.timestamp }}</td>
@@ -136,33 +140,23 @@ const attackEnum = {
   14: "SQL Injection",
   15: "SSH-Bruteforce",
 };
-
 export default {
   name: "TrafficForm",
   data() {
     return {
       selectedHit: null,
-      hits: [],
+      hits: [], // Initialize the hits data
       csvhits: [],
+      allhits: [],
       startDatetime: "",
       endDatetime: "",
-      intervalId: null,
+      intervalId: null, // Variable to store the interval ID
     };
   },
   created() {
-    this.startHitsInterval();
+    this.startHitsInterval(); // Start the interval when the component is created
   },
   computed: {
-    filteredHits() {
-      const allHits = [...this.hits, ...this.csvhits];
-      // Sort allHits by timestamp in descending order
-      allHits.sort((a, b) => {
-        const timestampA = new Date(a._source.data.timestamp);
-        const timestampB = new Date(b._source.data.timestamp);
-        return timestampB - timestampA;
-      });
-      return allHits.filter((hit) => hit._source.data.src_ip);
-    },
     getProtocol() {
       return (hit) => {
         const protocol = hit._source.data.protocol;
@@ -185,83 +179,72 @@ export default {
         }
       };
     },
+    filteredHitsWithoutMissingSrcIp() {
+      return this.hits.filter((hit) => hit._source.data.src_ip);
+    },
   },
   methods: {
     showDetails(hit) {
       this.selectedHit = hit;
     },
     closeSideView() {
-      this.selectedHit = null;
+      this.selectedHit = null; // 사이드뷰를 닫을 때 selectedHit을 null로 설정합니다.
     },
     startHitsInterval() {
-      this.fetchHits();
+      this.fetchHits(); // Call fetchHits initially
       this.fetchHitsCsv();
+
+      // Set interval to call fetchHits every 2 seconds
       this.intervalId = setInterval(() => {
         this.fetchHits();
         this.fetchHitsCsv();
-      }, 1000);
+      }, 2000);
     },
     stopHitsInterval() {
-      clearInterval(this.intervalId);
+      clearInterval(this.intervalId); // Clear the interval
+      //console.log("clear", this.intervalId);
     },
     fetchHits() {
       axios
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
-          const newHits = response.data; // Check for new events by comparing with existing hits
-          const isNewEvent = newHits.some((newHit) => {
-            return !this.hits.some((existingHit) => {
-              return newHit._id === existingHit._id;
-            });
-          });
+          const previousHits = this.hits; // Store previous hits data
+          this.hits = response.data; // Update the hits data in the component
+          this.mergeHits(); // Merge hits and csvhits
 
-          if (isNewEvent) {
-            this.showInternetNotification(); // Display internet notification
+          // Check if the new hits data is different from the previous hits data
+          if (!this.isHitsDataEqual(previousHits, this.hits)) {
+            this.showInternetNotification();
           }
-          this.hits = newHits;
-          // Combine new hits with existing hits and sort by timestamp
-          this.hits = [...this.hits, ...newHits].sort((a, b) => {
-            const timestampA = new Date(a._source.data.timestamp);
-            const timestampB = new Date(b._source.data.timestamp);
-            return timestampB - timestampA;
-          });
         })
         .catch((error) => {
           console.error(error);
         });
+      //console.log("set", this.intervalId);
     },
-
     fetchHitsCsv() {
       axios
         .get("http://localhost:8080/api/hitscsv")
         .then((response) => {
-          const newCsvHits = response.data;
-          const isNewEvent = newCsvHits.some((newHit) => {
-            return !this.hits.some((existingHit) => {
-              return newHit._id === existingHit._id;
-            });
-          });
+          const previousHits = this.csvhits; // Store previous hits data
+          this.csvhits = response.data; // Update the hits data in the component
+          this.mergeHits(); // Merge hits and csvhits
 
-          if (isNewEvent) {
-            const isNewEvent2 = newCsvHits.some((newHit) => {
-              return newHit._source.data.status != 0;
-            });
-            if (isNewEvent2) this.showInternetNotificationCsv(); // Display internet notification
+          // Check if the new hits data is different from the previous hits data
+          if (!this.isHitsDataEqual(previousHits, this.csvhits)) {
+            if (this.csvhits.some((hit) => hit._source.data.status !== 0)) {
+              this.showInternetNotification();
+            }
           }
-          // Combine new csv hits with existing csv hits and sort by timestamp
-          this.csvhits = [...this.csvhits, ...newCsvHits].sort((a, b) => {
-            const timestampA = new Date(a._source.data.timestamp);
-            const timestampB = new Date(b._source.data.timestamp);
-            return timestampB - timestampA;
-          });
         })
         .catch((error) => {
           console.error(error);
         });
+      //console.log("set", this.intervalId);
     },
-
     fetchHitsDuration() {
-      this.stopHitsInterval();
+      this.stopHitsInterval(); // Stop the interval when fetchHitsDuration is called
+
       axios
         .get("http://localhost:8080/api/hitsjson_duration", {
           params: {
@@ -277,7 +260,8 @@ export default {
         });
     },
     fetchHitsDurationCsv() {
-      this.stopHitsInterval();
+      this.stopHitsInterval(); // Stop the interval when fetchHitsDuration is called
+
       axios
         .get("http://localhost:8080/api/hitscsv_duration", {
           params: {
@@ -292,8 +276,16 @@ export default {
           console.error(error);
         });
     },
+    mergeHits() {
+      this.allhits = [...this.hits, ...this.csvhits];
+      this.allhits.sort((a, b) =>
+        a._source.data.timestamp < b._source.data.timestamp ? 1 : -1
+      );
+      console.log(this.allhits);
+    },
     generateItems() {
       this.fetchHitsDuration();
+      this.fetchHitsDurationCsv();
     },
     showInternetNotification() {
       if ("Notification" in window) {
