@@ -237,11 +237,11 @@ export default {
         .then((response) => {
           const newCsvHits = response.data;
           const isNewEvent = newCsvHits.some((newHit) => {
-            return newHit._source.data.status !== 0;
+            return newHit._source.data.status != 0;
           });
 
           if (isNewEvent) {
-            this.showInternetNotification(); // Display internet notification
+            this.showInternetNotificationCsv(); // Display internet notification
           }
           // Combine new csv hits with existing csv hits and sort by timestamp
           this.csvhits = [...this.csvhits, ...newCsvHits].sort((a, b) => {
@@ -295,7 +295,18 @@ export default {
         Notification.requestPermission().then((permission) => {
           if (permission === "granted") {
             new Notification("GWANGJININJA Alert", {
-              body: "Attack Occurred!",
+              body: "rulebased Attack Detected!",
+            });
+          }
+        });
+      }
+    },
+    showInternetNotificationCsv() {
+      if ("Notification" in window) {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            new Notification("GWANGJININJA Alert", {
+              body: "ML Attack Detected!",
             });
           }
         });
