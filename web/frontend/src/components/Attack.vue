@@ -159,6 +159,7 @@ export default {
           for (let i = 1; i < this.data.length - 1; i++) {
             const attack = Object.keys(total)[i - 1];
             this.data[i + 1][1] = total[attack];
+            console.log(this.data);
           }
         })
         .catch((error) => {

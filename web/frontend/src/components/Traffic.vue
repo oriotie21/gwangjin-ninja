@@ -63,14 +63,45 @@
   <div v-if="selectedHit" class="side-view">
     <button class="close-button" @click="closeSideView">Close</button>
     <p></p>
+    <b>Source IP:</b>
     <h3>
       <b>{{ selectedHit._source.data.src_ip }}</b>
     </h3>
+    <p></p>
+    <p>
+      <b
+        >Destination IP:
+        {{
+          selectedHit._source.data.dest_ip || selectedHit._source.data.dst_ip
+        }}</b
+      >
+    </p>
     <p>
       <b>Timestamp: {{ selectedHit._source.data.timestamp }}</b>
     </p>
     <p>
-      <b>Destination IP: {{ selectedHit._source.data.dest_ip }}</b>
+      <b
+        >PacketType:
+        {{ selectedHit._source.data.event_type || getAttack(selectedHit) }}</b
+      >
+    </p>
+    <p>
+      <b
+        >Protocol:
+        {{ selectedHit._source.data.proto || getProtocol(selectedHit) }}</b
+      >
+    </p>
+    <p>
+      <b>Source Port: {{ selectedHit._source.data.src_port }}</b>
+    </p>
+    <p>
+      <b
+        >Destination Port:
+        {{
+          selectedHit._source.data.dest_port ||
+          selectedHit._source.data.dst_port
+        }}</b
+      >
     </p>
   </div>
 </template>
@@ -85,6 +116,25 @@ const protocolEnum = {
   50: "ESP",
   58: "ICMPv6",
   89: "OSPF",
+};
+
+const attackEnum = {
+  0: "Benign",
+  1: "Bot",
+  2: "Brute Force -Web",
+  3: "Brute Force -XSS",
+  4: "DDOS attack-HOIC",
+  5: "DDOS attack-LOIC-UDP",
+  6: "DDOS attack-sim",
+  7: "DDoS attacks-LOIC-HTTP",
+  8: "DoS attacks-GoldenEye",
+  9: "DoS attacks-Hulk",
+  10: "DoS attacks-SlowHTTPTest",
+  11: "DoS attacks-Slowloris",
+  12: "FTP-BruteForce",
+  13: "Infilteration",
+  14: "SQL Injection",
+  15: "SSH-Bruteforce",
 };
 
 export default {
@@ -121,6 +171,17 @@ export default {
           return protocolEnum[protocol];
         } else {
           return protocol;
+        }
+      };
+    },
+    getAttack() {
+      return (hit) => {
+        const attack = hit._source.data.status;
+        console.log(attack);
+        if (attack in attackEnum) {
+          return attackEnum[attack];
+        } else {
+          return attack;
         }
       };
     },
