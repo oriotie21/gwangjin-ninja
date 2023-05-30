@@ -208,22 +208,36 @@ export default {
       axios
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
-          this.hits = response.data;
+          const newHits = response.data;
+          // Combine new hits with existing hits and sort by timestamp
+          this.hits = [...this.hits, ...newHits].sort((a, b) => {
+            const timestampA = new Date(a._source.data.timestamp);
+            const timestampB = new Date(b._source.data.timestamp);
+            return timestampB - timestampA;
+          });
         })
         .catch((error) => {
           console.error(error);
         });
     },
+
     fetchHitsCsv() {
       axios
         .get("http://localhost:8080/api/hitscsv")
         .then((response) => {
-          this.csvhits = response.data;
+          const newCsvHits = response.data;
+          // Combine new csv hits with existing csv hits and sort by timestamp
+          this.csvhits = [...this.csvhits, ...newCsvHits].sort((a, b) => {
+            const timestampA = new Date(a._source.data.timestamp);
+            const timestampB = new Date(b._source.data.timestamp);
+            return timestampB - timestampA;
+          });
         })
         .catch((error) => {
           console.error(error);
         });
     },
+
     fetchHitsDuration() {
       this.stopHitsInterval();
       axios
