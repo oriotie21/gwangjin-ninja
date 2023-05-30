@@ -208,7 +208,17 @@ export default {
       axios
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
-          const newHits = response.data;
+          const newHits = response.data; // Check for new events by comparing with existing hits
+          const isNewEvent = newHits.some((newHit) => {
+            return !this.hits.some((existingHit) => {
+              return newHit._id === existingHit._id;
+            });
+          });
+
+          if (isNewEvent) {
+            this.showInternetNotification(); // Display internet notification
+          }
+          this.hits = newHits;
           // Combine new hits with existing hits and sort by timestamp
           this.hits = [...this.hits, ...newHits].sort((a, b) => {
             const timestampA = new Date(a._source.data.timestamp);
@@ -226,6 +236,13 @@ export default {
         .get("http://localhost:8080/api/hitscsv")
         .then((response) => {
           const newCsvHits = response.data;
+          const isNewEvent = newCsvHits.some((newHit) => {
+            return newHit._source.data.status !== 0;
+          });
+
+          if (isNewEvent) {
+            this.showInternetNotification(); // Display internet notification
+          }
           // Combine new csv hits with existing csv hits and sort by timestamp
           this.csvhits = [...this.csvhits, ...newCsvHits].sort((a, b) => {
             const timestampA = new Date(a._source.data.timestamp);
