@@ -240,7 +240,7 @@ export default {
             if (
               this.hits.some(
                 (hit) =>
-                  hit._source.data.drop.rst !== true ||
+                  hit._source.data.drop.rst !== true &&
                   hit._source.data.drop.fin !== true
               )
             ) {
