@@ -47,7 +47,8 @@
         :class="{
           'table-drop': hit._source.data.event_type === 'drop',
           'table-alert': hit._source.data.event_type === 'alert',
-          'table-attack': hit._source.data.status != 0,
+          'table-attack':
+            !hit._source.data.event_type && hit._source.data.status != 0,
         }"
         @dblclick="showDetails(hit)"
       >
@@ -334,7 +335,10 @@ export default {
         return "table-drop";
       } else if (hit._source.data.event_type === "alert") {
         return "table-alert";
-      } else if (hit._source.data.status !== 0) {
+      } else if (
+        !hit._source.data.event_type &&
+        hit._source.data.status !== 0
+      ) {
         return "table-attack";
       }
       return "";
