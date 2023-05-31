@@ -269,7 +269,7 @@ export default {
           // Check if the new hits data is different from the previous hits data
           if (!this.isHitsDataEqual(previousHits, this.csvhits)) {
             if (this.csvhits.some((hit) => hit._source.data.status !== 0)) {
-              this.showInternetNotification();
+              this.showInternetNotificationCsv();
             }
           }
         })
