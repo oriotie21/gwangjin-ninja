@@ -163,6 +163,7 @@ export default {
   },
   created() {
     this.startHitsInterval(); // Start the interval when the component is created
+    this.requestNotificationPermission();
   },
   computed: {
     filteredHits() {
@@ -275,7 +276,7 @@ export default {
           // Check if the new hits data is different from the previous hits data
           if (!this.isHitsDataEqual(previousHits, this.csvhits)) {
             if (newHits.some((hit) => hit._source.data.status !== 0)) {
-              //this.showInternetNotificationCsv();
+              this.showInternetNotificationCsv();
             }
           }
         })
@@ -283,6 +284,15 @@ export default {
           console.error(error);
         });
       //console.log("set", this.intervalId);
+    },
+    requestNotificationPermission() {
+      if ("Notification" in window) {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            console.log("Notification permission granted");
+          }
+        });
+      }
     },
     fetchHitsDuration() {
       this.stopHitsInterval(); // Stop the interval when fetchHitsDuration is called
@@ -333,23 +343,15 @@ export default {
     },
     showInternetNotification() {
       if ("Notification" in window) {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            new Notification("GWANGJININJA Alert", {
-              body: "rulebased Attack Detected!",
-            });
-          }
+        new Notification("GWANGJININJA Alert", {
+          body: "rulebased Attack Detected!",
         });
       }
     },
     showInternetNotificationCsv() {
       if ("Notification" in window) {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            new Notification("GWANGJININJA Alert", {
-              body: "ML Attack Detected!",
-            });
-          }
+        new Notification("GWANGJININJA Alert", {
+          body: "ML Attack Detected!",
         });
       }
     },
