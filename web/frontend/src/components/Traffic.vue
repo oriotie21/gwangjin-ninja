@@ -49,7 +49,8 @@
             hit._source.data !== undefined &&
             hit._source.data.drop !== undefined &&
             hit._source.data.proto === 'TCP' &&
-            hit._source.data.drop.rst === true,
+            (hit._source.data.drop.rst === true ||
+              hit._source.data.drop.fin === true),
           'table-drop': hit._source.data.event_type === 'drop',
           'table-alert': hit._source.data.event_type === 'alert',
           'table-attack':
@@ -166,8 +167,7 @@ export default {
   computed: {
     filteredHits() {
       return this.allhits.filter(
-        (hit) => hit._source.data.dest_ip || hit._source.data.dst_ip,
-        (hit) => hit._source.data.drop.rst != true
+        (hit) => hit._source.data.dest_ip || hit._source.data.dst_ip
       );
     },
     getProtocol() {
@@ -339,7 +339,8 @@ export default {
         hit._source.data !== undefined &&
         hit._source.data.drop !== undefined &&
         hit._source.data.proto === "TCP" &&
-        hit._source.data.drop.rst === true
+        (hit._source.data.drop.rst === true ||
+          hit._source.data.drop.fin === true)
       ) {
         return "table-rst";
       } else if (hit._source.data.event_type === "drop") {
