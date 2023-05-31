@@ -264,6 +264,7 @@ export default {
         })
         .then((response) => {
           this.hits = response.data;
+          this.mergeHits();
         })
         .catch((error) => {
           console.error(error);
@@ -281,6 +282,7 @@ export default {
         })
         .then((response) => {
           this.csvhits = response.data;
+          this.mergeHits();
         })
         .catch((error) => {
           console.error(error);
@@ -320,7 +322,7 @@ export default {
       }
     },
     getTableClass(hit) {
-      if (hit._source.data.rst == 1) {
+      if (hit._source.data.rst == true) {
         return "";
       } else if (hit._source.data.event_type === "drop") {
         return "table-drop";
