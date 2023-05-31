@@ -24,7 +24,7 @@ app.get("/api/hitsjson", (req, res) => {
   client
     .search({
       index: "network-log",
-      size: 100,
+      size: 10000,
       body: {
         sort: [
           {
@@ -136,7 +136,7 @@ app.get("/api/hitscsv", (req, res) => {
   client
     .search({
       index: "network-log",
-      size: 100,
+      size: 10000,
       body: {
         sort: [
           {
