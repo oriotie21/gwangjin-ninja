@@ -240,8 +240,13 @@ export default {
             if (
               this.hits.some(
                 (hit) =>
-                  hit._source.data.drop.rst !== true &&
-                  hit._source.data.drop.fin !== true
+                  !(
+                    hit._source.data !== undefined &&
+                    hit._source.data.drop !== undefined &&
+                    hit._source.data.proto === "TCP" &&
+                    (hit._source.data.drop.rst === true ||
+                      hit._source.data.drop.fin === true)
+                  )
               )
             ) {
               this.showInternetNotification();
