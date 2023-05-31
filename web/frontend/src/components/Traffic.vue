@@ -253,7 +253,7 @@ export default {
                   )
               )
             ) {
-              this.showInternetNotification();
+              //this.showInternetNotification();
             }
           }
         })
