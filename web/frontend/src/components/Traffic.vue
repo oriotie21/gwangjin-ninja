@@ -54,7 +54,7 @@
           'table-drop': hit._source.data.event_type === 'drop',
           'table-alert': hit._source.data.event_type === 'alert',
           'table-attack':
-            !hit._source.data.event_type && hit._source.data.status != 0,
+            !hit._source.data.event_type && hit._source.data.status !== 0,
         }"
         @dblclick="showDetails(hit)"
       >
