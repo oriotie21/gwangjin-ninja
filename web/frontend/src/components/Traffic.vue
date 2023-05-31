@@ -204,6 +204,16 @@ export default {
       clearInterval(this.intervalId); // Clear the interval
       //console.log("clear", this.intervalId);
     },
+    isHitsDataEqual(previousHits, currentHits) {
+      // Implement the logic to compare the previous and current hits data
+      // and return true if they are equal, otherwise return false.
+      // You can use JSON.stringify to compare the string representation of the data.
+
+      const previousHitsString = JSON.stringify(previousHits);
+      const currentHitsString = JSON.stringify(currentHits);
+
+      return previousHitsString === currentHitsString;
+    },
     fetchHits() {
       axios
         .get("http://localhost:8080/api/hitsjson")
