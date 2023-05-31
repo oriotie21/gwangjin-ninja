@@ -45,8 +45,6 @@
         v-for="(hit, index) in filteredHits"
         :key="index"
         :class="{
-          'table-rst':
-            hit.source.data.proto && hit._source.data.drop.rst == true,
           'table-drop': hit._source.data.event_type === 'drop',
           'table-alert': hit._source.data.event_type === 'alert',
           'table-attack':
@@ -331,11 +329,8 @@ export default {
       }
     },
     getTableClass(hit) {
-      if (
-        hit._source.data.proto == "TCP" &&
-        hit._source.data.drop.rst == true
-      ) {
-        return "table-rst";
+      if (hit._source.data.rst == true) {
+        return "";
       } else if (hit._source.data.event_type === "drop") {
         return "table-drop";
       } else if (hit._source.data.event_type === "alert") {
@@ -361,9 +356,6 @@ export default {
 }
 .table-attack {
   background-color: rgb(253, 186, 227);
-}
-.table-rst {
-  background-color: #afd3e2;
 }
 .side-view {
   position: fixed;
