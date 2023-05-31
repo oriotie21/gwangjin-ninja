@@ -161,7 +161,8 @@ export default {
   computed: {
     filteredHits() {
       return this.allhits.filter(
-        (hit) => hit._source.data.dest_ip || hit._source.data.dst_ip
+        (hit) => hit._source.data.dest_ip || hit._source.data.dst_ip,
+        (hit) => hit._source.data.drop.rst != true
       );
     },
     getProtocol() {
