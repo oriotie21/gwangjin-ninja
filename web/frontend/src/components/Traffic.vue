@@ -45,7 +45,8 @@
         v-for="(hit, index) in filteredHits"
         :key="index"
         :class="{
-          'table-rst': hit._source.data.drop.rst == true,
+          'table-rst':
+            hit.source.data.proto && hit._source.data.drop.rst == true,
           'table-drop': hit._source.data.event_type === 'drop',
           'table-alert': hit._source.data.event_type === 'alert',
           'table-attack':
@@ -330,7 +331,10 @@ export default {
       }
     },
     getTableClass(hit) {
-      if (hit._source.data.drop && hit._source.data.drop.rst == true) {
+      if (
+        hit._source.data.proto == "TCP" &&
+        hit._source.data.drop.rst == true
+      ) {
         return "table-rst";
       } else if (hit._source.data.event_type === "drop") {
         return "table-drop";
