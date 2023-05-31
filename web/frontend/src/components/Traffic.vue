@@ -219,8 +219,7 @@ export default {
         .get("http://localhost:8080/api/hitsjson")
         .then((response) => {
           const previousHits = this.hits; // Store previous hits data
-          const currentHits = response.data; // Update the hits data in the component
-          this.hits = currentHits.filter((hit) => !previousHits.includes(hit));
+          this.hits = response.data;
           this.mergeHits(); // Merge hits and csvhits
 
           // Check if the new hits data is different from the previous hits data
@@ -238,10 +237,7 @@ export default {
         .get("http://localhost:8080/api/hitscsv")
         .then((response) => {
           const previousHits = this.csvhits; // Store previous hits data
-          const currentHits = response.data; // Update the hits data in the component
-          this.csvhits = currentHits.filter(
-            (hit) => !previousHits.includes(hit)
-          );
+          this.csvhits = response.data; // Update the hits data in the component
           this.mergeHits(); // Merge hits and csvhits
 
           // Check if the new hits data is different from the previous hits data
