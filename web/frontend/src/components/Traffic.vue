@@ -330,7 +330,7 @@ export default {
       }
     },
     getTableClass(hit) {
-      if (hit._source.data.drop.rst == true) {
+      if (hit._source.data.drop && hit._source.data.drop.rst == true) {
         return "table-rst";
       } else if (hit._source.data.event_type === "drop") {
         return "table-drop";
