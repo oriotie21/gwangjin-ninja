@@ -42,7 +42,7 @@
     </thead>
     <tbody v-if="allhits.length > 0">
       <tr
-        v-for="(hit, index) in allhits"
+        v-for="(hit, index) in filteredHits"
         :key="index"
         :class="{
           'table-drop': hit._source.data.event_type === 'drop',
@@ -157,6 +157,11 @@ export default {
     this.startHitsInterval(); // Start the interval when the component is created
   },
   computed: {
+    filteredHits() {
+      return this.allhits.filter(
+        (hit) => hit._source.data.dest_ip || hit._source.data.dst_ip
+      );
+    },
     getProtocol() {
       return (hit) => {
         const protocol = hit._source.data.protocol;
