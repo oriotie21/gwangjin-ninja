@@ -237,7 +237,15 @@ export default {
 
           // Check if the new hits data is different from the previous hits data
           if (!this.isHitsDataEqual(previousHits, this.hits)) {
-            this.showInternetNotification();
+            if (
+              this.hits.some(
+                (hit) =>
+                  hit._source.data.drop.rst !== true ||
+                  hit._source.data.drop.fin !== true
+              )
+            ) {
+              this.showInternetNotification();
+            }
           }
         })
         .catch((error) => {
