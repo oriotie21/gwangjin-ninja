@@ -233,12 +233,15 @@ export default {
         .then((response) => {
           const previousHits = this.hits; // Store previous hits data
           this.hits = response.data;
+          const newHits = this.hits.filter(
+            (hit) => !previousHits.includes(hit)
+          );
           this.mergeHits(); // Merge hits and csvhits
 
           // Check if the new hits data is different from the previous hits data
           if (!this.isHitsDataEqual(previousHits, this.hits)) {
             if (
-              this.hits.some(
+              newHits.some(
                 (hit) =>
                   !(
                     hit._source.data !== undefined &&
@@ -264,11 +267,14 @@ export default {
         .then((response) => {
           const previousHits = this.csvhits; // Store previous hits data
           this.csvhits = response.data; // Update the hits data in the component
+          const newHits = this.csvhits.filter(
+            (hit) => !previousHits.includes(hit)
+          );
           this.mergeHits(); // Merge hits and csvhits
 
           // Check if the new hits data is different from the previous hits data
           if (!this.isHitsDataEqual(previousHits, this.csvhits)) {
-            if (this.csvhits.some((hit) => hit._source.data.status !== 0)) {
+            if (newHits.some((hit) => hit._source.data.status !== 0)) {
               this.showInternetNotificationCsv();
             }
           }
