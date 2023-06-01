@@ -96,110 +96,7 @@ export default {
   },
 
   async mounted() {
-    this.BarchartData.datasets = [
-      {
-        label: "rulebased",
-        data: await this.generateDataJson(),
-        backgroundColor: "#8294C4",
-        stack: "stacked",
-      },
-      {
-        label: "Benign",
-        data: await this.generateData(0),
-        backgroundColor: "#DBDFEA",
-        stack: "stacked",
-      },
-      {
-        label: "Bot",
-        data: await this.generateData(1),
-        backgroundColor: "#ACB1D6",
-        stack: "stacked",
-      },
-      {
-        label: "BruteForce_Web",
-        data: await this.generateData(2),
-        backgroundColor: "#8294C4",
-        stack: "stacked",
-      },
-      {
-        label: "BruteForce_XSS",
-        data: await this.generateData(3),
-        backgroundColor: "#DBDFEA",
-        stack: "stacked",
-      },
-      {
-        label: "DDOS_attack_HOIC",
-        data: await this.generateData(4),
-        backgroundColor: "#ACB1D6",
-        stack: "stacked",
-      },
-      {
-        label: "DDOS_attack_LOIC_UDP",
-        data: await this.generateData(5),
-        backgroundColor: "#8294C4",
-        stack: "stacked",
-      },
-      {
-        label: "DDOS_attack_LOIC_UDP",
-        data: await this.generateData(6),
-        backgroundColor: "#ACB1D6",
-        stack: "stacked",
-      },
-      {
-        label: "DDoS_attacks_LOIC_HTTP",
-        data: await this.generateData(7),
-        backgroundColor: "#DBDFEA",
-        stack: "stacked",
-      },
-      {
-        label: "DoS_attacks_GoldenEye",
-        data: await this.generateData(8),
-        backgroundColor: "#ACB1D6",
-        stack: "stacked",
-      },
-      {
-        label: "DoS_attacks_Hulk",
-        data: await this.generateData(9),
-        backgroundColor: "#8294C4",
-        stack: "stacked",
-      },
-      {
-        label: "DoS_attacks_SlowHTTPTest",
-        data: await this.generateData(10),
-        backgroundColor: "#DBDFEA",
-        stack: "stacked",
-      },
-      {
-        label: "DoS_attacks_Slowloris",
-        data: await this.generateData(11),
-        backgroundColor: "#ACB1D6",
-        stack: "stacked",
-      },
-      {
-        label: "FTP_BruteForce",
-        data: await this.generateData(12),
-        backgroundColor: "#8294C4",
-        stack: "stacked",
-      },
-      {
-        label: "Infilteration",
-        data: await this.generateData(13),
-        backgroundColor: "#DBDFEA",
-        stack: "stacked",
-      },
-      {
-        label: "SQLInjection",
-        data: await this.generateData(14),
-        backgroundColor: "#ACB1D6",
-        stack: "stacked",
-      },
-      {
-        label: "SSH_Bruteforce",
-        data: await this.generateData(15),
-        backgroundColor: "#8294C4",
-        stack: "stacked",
-      },
-    ];
+    await this.generateData();
 
     for (let i = 0; i < 17; i++) {
       for (let j = 0; j < this.BarchartData.labels.length; j++) {
@@ -209,34 +106,121 @@ export default {
     }
 
     try {
+      this.isLoading = false; // 로딩 상태 변경
       await this.renderChart();
       await this.renderLineChart();
-      this.isLoading = false; // 로딩 상태 변경
     } catch (error) {
       console.error(error);
       this.isLoading = false; // 로딩 상태 변경 (에러 발생 시에도 로딩중 표시 제거)
     }
   },
   methods: {
-    async generateData(index) {
-      const data = [];
-      for (let i = 11; i >= 0; i--) {
-        let count = 0;
-        await this.fetchHits(i);
-        if (this.hits) {
-          this.hits.forEach((hit) => {
-            if (hit._source.data.status === index) {
-              count++;
-            }
-          });
-        }
-        data.push(count);
-        console.log(data);
-      }
-      return data;
-    },
-    async generateDataJson() {
-      const data = [];
+    async generateData() {
+      this.BarchartData.datasets = [
+        {
+          label: "rulebased",
+          data: [],
+          backgroundColor: "#8294C4",
+          stack: "stacked",
+        },
+        {
+          label: "Benign",
+          data: [],
+          backgroundColor: "#DBDFEA",
+          stack: "stacked",
+        },
+        {
+          label: "Bot",
+          data: [],
+          backgroundColor: "#ACB1D6",
+          stack: "stacked",
+        },
+        {
+          label: "BruteForce_Web",
+          data: [],
+          backgroundColor: "#8294C4",
+          stack: "stacked",
+        },
+        {
+          label: "BruteForce_XSS",
+          data: [],
+          backgroundColor: "#DBDFEA",
+          stack: "stacked",
+        },
+        {
+          label: "DDOS_attack_HOIC",
+          data: [],
+          backgroundColor: "#ACB1D6",
+          stack: "stacked",
+        },
+        {
+          label: "DDOS_attack_LOIC_UDP",
+          data: [],
+          backgroundColor: "#8294C4",
+          stack: "stacked",
+        },
+        {
+          label: "DDOS_attack_LOIC_UDP",
+          data: [],
+          backgroundColor: "#ACB1D6",
+          stack: "stacked",
+        },
+        {
+          label: "DDoS_attacks_LOIC_HTTP",
+          data: [],
+          backgroundColor: "#DBDFEA",
+          stack: "stacked",
+        },
+        {
+          label: "DoS_attacks_GoldenEye",
+          data: [],
+          backgroundColor: "#ACB1D6",
+          stack: "stacked",
+        },
+        {
+          label: "DoS_attacks_Hulk",
+          data: [],
+          backgroundColor: "#8294C4",
+          stack: "stacked",
+        },
+        {
+          label: "DoS_attacks_SlowHTTPTest",
+          data: [],
+          backgroundColor: "#DBDFEA",
+          stack: "stacked",
+        },
+        {
+          label: "DoS_attacks_Slowloris",
+          data: [],
+          backgroundColor: "#ACB1D6",
+          stack: "stacked",
+        },
+        {
+          label: "FTP_BruteForce",
+          data: [],
+          backgroundColor: "#8294C4",
+          stack: "stacked",
+        },
+        {
+          label: "Infilteration",
+          data: [],
+          backgroundColor: "#DBDFEA",
+          stack: "stacked",
+        },
+        {
+          label: "SQLInjection",
+          data: [],
+          backgroundColor: "#ACB1D6",
+          stack: "stacked",
+        },
+        {
+          label: "SSH_Bruteforce",
+          data: [],
+          backgroundColor: "#8294C4",
+          stack: "stacked",
+        },
+      ];
+
       for (let i = 11; i >= 0; i--) {
         let count = 0;
         await this.fetchHitsJson(i);
@@ -245,9 +229,21 @@ export default {
             count++;
           });
         }
-        data.push(count);
+        this.BarchartData.datasets[0].data.push(count);
       }
-      return data;
+
+      for (let i = 11; i >= 0; i--) {
+        let count = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        await this.fetchHits(i);
+        if (this.hits) {
+          this.hits.forEach((hit) => {
+            count[hit._source.data.status]++;
+          });
+        }
+        for (let i = 1; i <= 16; i++) {
+          this.BarchartData.datasets[i].data.push(count[i]);
+        }
+      }
     },
     fetchHits(minusmonth) {
       return new Promise((resolve, reject) => {

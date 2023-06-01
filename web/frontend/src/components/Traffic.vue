@@ -174,7 +174,6 @@ export default {
     getProtocol() {
       return (hit) => {
         const protocol = hit._source.data.protocol;
-        console.log(protocol);
         if (protocol in protocolEnum) {
           return protocolEnum[protocol];
         } else {
@@ -204,19 +203,18 @@ export default {
     closeSideView() {
       this.selectedHit = null; // 사이드뷰를 닫을 때 selectedHit을 null로 설정합니다.
     },
-    startHitsInterval() {
-      this.fetchHits(); // Call fetchHits initially
-      this.fetchHitsCsv();
+    async startHitsInterval() {
+      await this.fetchHits(); // Call fetchHits initially
+      await this.fetchHitsCsv();
 
       // Set interval to call fetchHits every 2 seconds
-      this.intervalId = setInterval(() => {
-        this.fetchHits();
-        this.fetchHitsCsv();
+      this.intervalId = setInterval(async () => {
+        await this.fetchHits();
+        await this.fetchHitsCsv();
       }, 2000);
     },
     stopHitsInterval() {
       clearInterval(this.intervalId); // Clear the interval
-      //console.log("clear", this.intervalId);
     },
     isHitsDataEqual(previousHits, currentHits) {
       // Implement the logic to compare the previous and current hits data
@@ -228,62 +226,60 @@ export default {
 
       return previousHitsString === currentHitsString;
     },
-    fetchHits() {
-      axios
-        .get("http://localhost:8080/api/hitsjson")
-        .then((response) => {
-          const previousHits = this.hits; // Store previous hits data
-          this.hits = response.data;
-          const newHits = this.hits.filter(
-            (hit) => !previousHits.includes(hit)
-          );
-          this.mergeHits(); // Merge hits and csvhits
+    async fetchHits() {
+      try {
+        const response = await axios.get("http://localhost:8080/api/hitsjson");
+        const previousHits = this.hits.map(JSON.stringify); // Store previous hits data as stringified elements
+        this.hits = response.data; // Update the hits data in the component
+        const newHits = this.hits.filter(
+          (hit) => !previousHits.includes(JSON.stringify(hit))
+        );
+        this.mergeHits(); // Merge hits and csvhits
 
-          // Check if the new hits data is different from the previous hits data
-          if (!this.isHitsDataEqual(previousHits, this.hits)) {
-            if (
-              newHits.some(
-                (hit) =>
-                  !(
-                    hit._source.data !== undefined &&
-                    hit._source.data.drop !== undefined &&
-                    hit._source.data.proto === "TCP" &&
-                    (hit._source.data.drop.rst === true ||
-                      hit._source.data.drop.fin === true)
-                  )
-              )
-            ) {
-              //this.showInternetNotification();
-            }
+        // Check if the new hits data is different from the previous hits data
+        if (!this.isHitsDataEqual(previousHits, this.hits)) {
+          if (
+            newHits.some(
+              (hit) =>
+                !(
+                  hit._source.data !== undefined &&
+                  hit._source.data.drop !== undefined &&
+                  hit._source.data.proto === "TCP" &&
+                  (hit._source.data.drop.rst === true ||
+                    hit._source.data.drop.fin === true)
+                )
+            )
+          ) {
+            this.showInternetNotification();
           }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      //console.log("set", this.intervalId);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
-    fetchHitsCsv() {
-      axios
-        .get("http://localhost:8080/api/hitscsv")
-        .then((response) => {
-          const previousHits = this.csvhits; // Store previous hits data
-          this.csvhits = response.data; // Update the hits data in the component
-          const newHits = this.csvhits.filter(
-            (hit) => !previousHits.includes(hit)
-          );
-          this.mergeHits(); // Merge hits and csvhits
 
-          // Check if the new hits data is different from the previous hits data
-          if (!this.isHitsDataEqual(previousHits, this.csvhits)) {
-            if (newHits.some((hit) => hit._source.data.status !== 0)) {
-              this.showInternetNotificationCsv();
-            }
+    async fetchHitsCsv() {
+      try {
+        const response = await axios.get("http://localhost:8080/api/hitscsv");
+        const previousHits = this.csvhits.map(JSON.stringify); // Store previous hits data as stringified elements
+        this.csvhits = response.data; // Update the hits data in the component
+        const newHits = this.csvhits.filter(
+          (hit) => !previousHits.includes(JSON.stringify(hit))
+        );
+        this.mergeHits(); // Merge hits and csvhits
+        console.log(previousHits);
+        console.log(this.csvhits);
+        console.log(newHits);
+
+        // Check if the new hits data is different from the previous hits data
+        if (!this.isHitsDataEqual(previousHits, this.csvhits)) {
+          if (newHits.some((hit) => hit._source.data.status !== 0)) {
+            this.showInternetNotificationCsv();
           }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      //console.log("set", this.intervalId);
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     requestNotificationPermission() {
       if ("Notification" in window) {
@@ -335,7 +331,6 @@ export default {
       this.allhits.sort((a, b) =>
         a._source.data.timestamp < b._source.data.timestamp ? 1 : -1
       );
-      console.log(this.allhits);
     },
     generateItems() {
       this.fetchHitsDuration();
