@@ -3,7 +3,7 @@ import pickle
 import os
 
 # 저장한 파일들이 있는 디렉토리
-dir_name = "/home/oriotie/gwangjin_ninja/model/PCA20"
+dir_name = "/home/oriotie/gwangjin_ninja/detector/model/PCA20"
 
 # Load model
 loaded_model = load_model(os.path.join(dir_name, 'my_model.h5'))
@@ -40,7 +40,7 @@ class Inputs(BaseModel):
 
 #ninput("press any key to continue...")
 # Set the path to the folder containing your CSV files
-folder_path = "/home/oriotie/gwangjin_ninja/"
+folder_path = "/home/oriotie/gwangjin_ninja/detector"
 samplefile_name = "sample.csv"
 sample_folder_path = os.path.join(folder_path,"model/dataset")
 csv_files = ["1.pcap_Flow.csv"]

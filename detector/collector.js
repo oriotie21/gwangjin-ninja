@@ -108,12 +108,12 @@ console.log("flowId : "+flowId);
 console.log("which packet ? : "+results[flowId]);
 result = results[flowId];
 packetinfo[0] = (result === undefined) ? "0" : result;
-if(result == "Benign" || result === undefined){
+if(result == "0" || result === undefined){
 nfPacket.setVerdict(nfq.NF_ACCEPT);
 
 }
 else{
-nfPacket.setVerdict(nfq.NF_ACCEPT);
+nfPacket.setVerdict(nfq.NF_DROP);
 }
 
 log(csvFileName, packetinfo);
