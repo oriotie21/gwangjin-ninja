@@ -1,0 +1,2 @@
+drop icmp any any -> any any (msg:"Drop all ICMP traffic"; sid:100;)
+

@@ -3,7 +3,6 @@ const app = express();
 const port = 3000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
 const elasticsearch = require("elasticsearch");
 //import Vue from "vue";
 //const Vue = require("../frontend/src/components/Traffic.vue").default;
@@ -16,12 +15,16 @@ const client = new elasticsearch.Client({
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
 app.get("/api/hitsjson", (req, res) => {
   // Elasticsearch 쿼리 실행
   client
     .search({
       index: "network-log",
-      size: 100,
+      size: 10000,
       body: {
         sort: [
           {
@@ -75,7 +78,7 @@ app.get("/api/hitsjson_duration", (req, res) => {
   client
     .search({
       index: "network-log",
-      size: 100,
+      size: 10000,
       body: {
         sort: [
           {
@@ -133,8 +136,27 @@ app.get("/api/hitscsv", (req, res) => {
   client
     .search({
       index: "network-log",
-      size: 100,
-      q: "tags:csv",
+      size: 10000,
+      body: {
+        sort: [
+          {
+            "data.timestamp": {
+              order: "desc",
+            },
+          },
+        ],
+        query: {
+          bool: {
+            filter: [
+              {
+                match: {
+                  tags: "csv",
+                },
+              },
+            ],
+          },
+        },
+      },
     })
     .then((response) => {
       // Elasticsearch로부터의 응답 처리
@@ -157,7 +179,7 @@ app.get("/api/hitscsv_duration", (req, res) => {
   client
     .search({
       index: "network-log",
-      size: 100,
+      size: 10000,
       body: {
         sort: [
           {

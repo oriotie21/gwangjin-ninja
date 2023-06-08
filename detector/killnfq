@@ -1,0 +1,1 @@
+sudo kill `ps aux | grep nfq | awk '{if(NR==1) print $2;}'`

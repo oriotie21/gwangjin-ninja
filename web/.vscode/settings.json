@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["axios"]
+  "cSpell.words": ["axios"],
+  "git.ignoreLimitWarning": true
 }

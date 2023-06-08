@@ -1,0 +1,116 @@
+2023-05-17 00:05:52 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:05:52 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:05:53 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:05:53 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:05:58 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:05:58 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:05:59 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:05:59 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:06:04 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:04 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:05 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:06 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:10 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:10 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:11 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:11 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:06:16 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:16 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:17 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:17 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:06:22 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:22 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:23 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:23 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:06:28 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:28 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:30 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:30 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:06:34 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:34 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:35 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:37 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:40 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:06:40 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:06:41 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:06:41 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:08:28 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:08:28 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:08:29 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:08:29 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:08:35 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:08:35 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:08:36 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:08:37 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:08:41 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:08:41 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:08:42 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:08:43 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:23 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:23 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:10:24 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:10:24 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:10:29 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:29 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:10:30 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:10:31 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:35 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:35 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:10:36 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:10:38 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:41 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:10:41 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:10:42 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:10:43 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:13:55 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:13:55 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:13:56 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:13:56 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:14:01 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:01 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:14:02 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:14:02 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:14:07 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:07 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:14:08 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:14:08 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:14:13 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:13 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:14:14 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:14:16 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:19 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:19 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:14:20 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:14:21 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:25 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:14:25 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:14:26 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:14:28 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:15:43 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:15:43 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:15:44 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:15:45 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:15:48 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:15:48 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:15:49 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:15:49 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:22:14 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:22:14 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:22:15 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:22:16 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:22:20 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:22:20 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:22:21 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:22:22 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:23:46 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:23:46 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:23:47 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:23:48 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0
+2023-05-17 00:23:52 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:23:52 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:23:53 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:23:54 DEBUG cic.cs.unb.ca.jnetpcap.PacketReader    Read All packets on /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:23:58 INFO  cic.cs.unb.ca.ifm.Cmd    You select: /home/yunmo/Documents/gwangjin_ninja/1.pcap
+2023-05-17 00:23:58 INFO  cic.cs.unb.ca.ifm.Cmd    Out folder: ../../
+2023-05-17 00:23:59 INFO  cic.cs.unb.ca.ifm.Cmd    CICFlowMeter received 1 pcap file
+2023-05-17 00:23:59 ERROR cic.cs.unb.ca.jnetpcap.PacketReader    Error while opening file for capture: truncated dump file; tried to read 4 file header bytes, only got 0

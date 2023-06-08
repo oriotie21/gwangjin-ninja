@@ -30,11 +30,9 @@
             <template #button-content>
               <img src="../../image/usericon.png" alt="User Image" />
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item @click="$router.push('/login')"
-              >Sign In</b-dropdown-item
+            <b-dropdown-item @click="$router.push('/interface')"
+              >Interface</b-dropdown-item
             >
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>

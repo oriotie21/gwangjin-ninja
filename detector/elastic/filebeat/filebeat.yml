@@ -1,0 +1,210 @@
+filebeat.inputs:
+    - type: log
+      enabled: true
+      encoding: UTF-8
+      paths:
+        - "/var/logs/beats/1/*.json"
+      tags: ["json"]
+      processors:
+        - drop_fields:
+            fields: ["input", "host", "ecs", "log", "agent"]
+
+    - type: log
+      enabled: true
+      encoding: UTF-8
+      paths:
+        - "/var/logs/beats/2/*.csv"
+      tags: ["csv"]
+      processors:
+        - drop_fields:
+            fields: ["input", "host", "ecs", "log", "agent"]
+        - decode_csv_fields:
+            fields:
+              message: "message"
+            separator: ","
+            ignore_missing: false
+            overwrite_keys: false
+            trim_leading_space: true
+            fail_on_error: true
+        - extract_array:
+            field: message
+            mappings:
+              dst_port: 0
+              protocol: 1
+              timestamp: 2
+              flow_duration: 3
+              tot_fwd_pkts: 4
+              tot_bwd_pkts: 5
+              totlen_fwd_pkts: 6
+              totlen_bwd_pkts: 7
+              fwd_pkt_len_max: 8
+              fwd_pkt_len_min: 9
+              fwd_pkt_len_mean: 10
+              fwd_pkt_len_std: 11
+              bwd_pkt_len_max: 12
+              bwd_pkt_len_min: 13
+              bwd_pkt_len_mean: 14
+              bwd_pkt_len_std: 15
+              flow_byts: 16
+              flow_pkts: 17
+              flow_iat_mean: 18
+              flow_iat_std: 19
+              flow_iat_max: 20
+              flow_iat_min: 21
+              fwd_iat_tot: 22
+              fwd_iat_mean: 23
+              fwd_iat_std: 24
+              fwd_iat_max: 25
+              fwd_iat_min: 26
+              bwd_iat_tot: 27
+              bwd_iat_mean: 28
+              bwd_iat_std: 29
+              bwd_iat_max: 30
+              bwd_iat_min: 31
+              fwd_psh_flags: 32
+              bwd_psh_flags: 33
+              fwd_urg_flags: 34
+              bwd_urg_flags: 35
+              fwd_header_len: 36
+              bwd_header_len: 37
+              fwd_pkts: 38
+              bwd_pkts: 39
+              pkt_len_min: 40
+              pkt_len_max: 41
+              pkt_len_mean: 42
+              pkt_len_std: 43
+              pkt_len_var: 44
+              fin_flag_cnt: 45
+              syn_flag_cnt: 46
+              rst_flag_cnt: 47
+              psh_flag_cnt: 48
+              ack_flag_cnt: 49
+              urg_flag_cnt: 50
+              cwe_flag_cnt: 51
+              ece_flag_cnt: 52
+              downup_ratio: 53
+              pkt_size_avg: 54
+              fwd_seg_size_avg: 55
+              bwd_seg_size_avg: 56
+              fwd_byts_avg: 57
+              fwd_pkts_avg: 58
+              fwd_blk_rate_avg: 59
+              bwd_byts_avg: 60
+              bwd_pkts_avg: 61
+              bwd_blk_rate_avg: 62
+              subflow_fwd_pkts: 63
+              subflow_fwd_byts: 64
+              subflow_bwd_pkts: 65
+              subflow_bwd_byts: 66
+              init_fwd_win_byts: 67
+              init_bwd_win_byts: 68
+              fwd_act_data_pkts: 69
+              fwd_seg_size_min: 70
+              active_mean: 71
+              active_std: 72
+              active_max: 73
+              active_min: 74
+              idle_mean: 75
+              idle_std: 76
+              idle_max: 77
+              idle_min: 78
+              label: 79
+        - drop_fields:
+            fields: ["message"]
+        - convert:
+            fields:
+              - {from: "dst_port", type: "integer"}
+              - {from: "protocol", type: "integer"}
+              - {from: "timestamp", type: "string"}
+              - {from: "flow_duration", type: "integer"}
+              - {from: "tot_fwd_pkts", type: "integer"}
+              - {from: "tot_bwd_pkts", type: "integer"}
+              - {from: "totlen_fwd_pkts", type: "integer"}
+              - {from: "totlen_bwd_pkts", type: "integer"}
+              - {from: "fwd_pkt_len_max", type: "integer"}
+              - {from: "fwd_pkt_len_min", type: "integer"}
+              - {from: "fwd_pkt_len_mean", type: "double"}
+              - {from: "fwd_pkt_len_std", type: "double"}
+              - {from: "bwd_pkt_len_max", type: "integer"}
+              - {from: "bwd_pkt_len_min", type: "integer"}
+              - {from: "bwd_pkt_len_mean", type: "double"}
+              - {from: "bwd_pkt_len_std", type: "double"}
+              - {from: "flow_byts", type: "double"}
+              - {from: "flow_pkts", type: "double"}
+              - {from: "flow_iat_mean", type: "double"}
+              - {from: "flow_iat_std", type: "double"}
+              - {from: "flow_iat_max", type: "long"}
+              - {from: "flow_iat_min", type: "integer"}
+              - {from: "fwd_iat_tot", type: "long"}
+              - {from: "fwd_iat_mean", type: "double"}
+              - {from: "fwd_iat_std", type: "double"}
+              - {from: "fwd_iat_max", type: "long"}
+              - {from: "fwd_iat_min", type: "integer"}
+              - {from: "bwd_iat_tot", type: "long"}
+              - {from: "bwd_iat_mean", type: "double"}
+              - {from: "bwd_iat_std", type: "double"}
+              - {from: "bwd_iat_max", type: "long"}
+              - {from: "bwd_iat_min", type: "integer"}
+              - {from: "fwd_psh_flags", type: "integer"}
+              - {from: "bwd_psh_flags", type: "integer"}
+              - {from: "fwd_urg_flags", type: "integer"}
+              - {from: "bwd_urg_flags", type: "integer"}
+              - {from: "fwd_header_len", type: "integer"}
+              - {from: "bwd_header_len", type: "integer"}
+              - {from: "fwd_pkts", type: "double"}
+              - {from: "bwd_pkts", type: "double"}
+              - {from: "pkt_len_min", type: "integer"}
+              - {from: "pkt_len_max", type: "integer"}
+              - {from: "pkt_len_mean", type: "double"}
+              - {from: "pkt_len_std", type: "double"}
+              - {from: "pkt_len_var", type: "double"}
+              - {from: "fin_flag_cnt", type: "integer"}
+              - {from: "syn_flag_cnt", type: "integer"}
+              - {from: "rst_flag_cnt", type: "integer"}
+              - {from: "psh_flag_cnt", type: "integer"}
+              - {from: "ack_flag_cnt", type: "integer"}
+              - {from: "urg_flag_cnt", type: "integer"}
+              - {from: "cwe_flag_cnt", type: "integer"}
+              - {from: "ece_flag_cnt", type: "integer"}
+              - {from: "downup_ratio", type: "float"}
+              - {from: "pkt_size_avg", type: "double"}
+              - {from: "fwd_seg_size_avg", type: "double"}
+              - {from: "bwd_seg_size_avg", type: "double"}
+              - {from: "fwd_byts_avg", type: "double"}
+              - {from: "fwd_pkts_avg", type: "double"}
+              - {from: "fwd_blk_rate_avg", type: "double"}
+              - {from: "bwd_byts_avg", type: "double"}
+              - {from: "bwd_pkts_avg", type: "double"}
+              - {from: "bwd_blk_rate_avg", type: "double"}
+              - {from: "subflow_fwd_pkts", type: "integer"}
+              - {from: "subflow_fwd_byts", type: "integer"}
+              - {from: "subflow_bwd_pkts", type: "integer"}
+              - {from: "init_fwd_win_byts", type: "integer"}
+              - {from: "init_bwd_win_byts", type: "integer"}
+              - {from: "fwd_act_data_pkts", type: "integer"}
+              - {from: "fwd_seg_size_min", type: "integer"}
+              - {from: "active_mean", type: "double"}
+              - {from: "active_std", type: "double"}
+              - {from: "active_max", type: "integer"}
+              - {from: "active_min", type: "integer"}
+              - {from: "idle_mean", type: "double"}
+              - {from: "idle_std", type: "double"}
+              - {from: "idle_max", type: "long"}
+              - {from: "idle_min", type: "long"}
+              - {from: "label", type: "string"}
+            ignore_missing: true
+
+# filebeat.config.modules:
+#   path: "${path.config}/modules.d/*.yml"
+  # reload.enabled: false
+
+output.logstash:
+  hosts: ["logstash:5044"]
+# setup.kibana:
+#   host: "kibana:5601"
+
+setup.template.name: "filebeat"
+setup.template.overwrite: false
+setup.template.settings:
+  index.number_of_shards: 1
+  index.number_of_replicas: 1

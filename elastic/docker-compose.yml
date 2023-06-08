@@ -1,0 +1,101 @@
+services:
+  es01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    container_name: es01
+    volumes:
+      - type: volume
+        source: esdata01
+        target: /usr/share/elasticsearch/esdata
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elastic
+    environment:
+      - node.name=es01
+      - cluster.name=es-docker
+      - discovery.seed_hosts=es02,es03
+      - cluster.initial_master_nodes=es01,es02,es03
+      - username=elastic
+      - password=elastic
+      - xpack.security.enabled=false
+
+  es02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    container_name: es02
+    volumes:
+      - type: volume
+        source: esdata02
+        target: /usr/share/elasticsearch/esdata
+    ports:
+      - 9201:9201
+      - 9301:9301
+    networks:
+      - elastic
+    environment:
+      - node.name=es02
+      - cluster.name=es-docker
+      - discovery.seed_hosts=es01,es03
+      - username=elastic
+      - password=elastic
+      - xpack.security.enabled=false
+
+  es03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.1
+    container_name: es03
+    volumes:
+      - type: volume
+        source: esdata03
+        target: /usr/share/elasticsearch/esdata
+    ports:
+      - 9202:9202
+      - 9302:9302
+    networks:
+      - elastic
+    environment:
+      - node.name=es03
+      - cluster.name=es-docker
+      - discovery.seed_hosts=es01,es02
+      - cluster.initial_master_nodes=es01,es02,es03
+      - username=elastic
+      - password=elastic
+      - xpack.security.enabled=false
+
+  logstash:
+    build: ./logstash/
+    container_name: logstash
+    ports:
+      - 5044:5044
+    networks:
+      - elastic
+    depends_on:
+      - es01
+      - es02
+      - es03
+
+  filebeat:
+    build: ./filebeat/
+    container_name: filebeat
+    volumes:
+      - type: bind
+        source: ./logs/suricata
+        target: /var/logs/beats/suricata
+      - type: bind
+        source: ./logs/ml
+        target: /var/logs/beats/ml
+    networks:
+      - elastic
+    depends_on:
+      - es01
+      - es02
+      - es03
+      - logstash
+
+volumes:
+  esdata01:
+  esdata02:
+  esdata03:
+
+networks:
+  elastic:
+    driver: bridge
