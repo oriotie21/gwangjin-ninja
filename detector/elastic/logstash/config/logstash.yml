@@ -1,9 +1,0 @@
-# api.http.port: 5044
-
-pipeline:
-  id: "beat_test"
-  workers: 1
-  ordered: true
-
-path:
-  config: "/usr/share/logstash/pipeline/pip_test.config"

@@ -1,4 +1,0 @@
-- module: suricata
-  eve:
-    enabled: true
-    paths: ["/var/logs/beats/*.json"]

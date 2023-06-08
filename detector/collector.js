@@ -39,16 +39,16 @@ function startCapture(){
 started = true;
 //collectTime:wq
 	//rId <_ call collectPacketFor()
-exec("iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT", (error, stdout, stderr) => {});
-exec("iptables -A INPUT -j NFQUEUE --queue-num 0", (error, stdout, stderr) => {});
+//exec("iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT", (error, stdout, stderr) => {});
+//exec("iptables -A INPUT -j NFQUEUE --queue-num 0", (error, stdout, stderr) => {});
 
 collectTimerId = setInterval(function(){
 if(collectable){
 collectable = false;
 collectPacketFor(500);
-// clearInterval(collectTimerId); //used for debug
+ //clearInterval(collectTimerId); //used for debug
 }
-}, 550);
+}, 600);
 }
 function stopCapture(){
 	started = false;
@@ -81,12 +81,12 @@ console.log('killed');
 }
 function csvConvertionFinished(){
 	 
+console.log("packet remain : "+pktQueue.length());
 fs.exists('1.pcap_Flow.csv',(exists)=>{
 if(exists){
 //receive result {flowId:prediction}
-console.log("file exists");
+console.log("file exists"+exists);
 recognizer.predictFromCSV('1.pcap_Flow.csv').then((results) => {
-
 
 while(!pktQueue.empty()){
 var nfPacket = pktQueue.dequeue();
@@ -117,11 +117,37 @@ nfPacket.setVerdict(nfq.NF_DROP);
 }
 
 log(csvFileName, packetinfo);
-
+//fs.unlink('./1.pcap_Flow.csv', (err)=>{console.log("err : "+err);});
 }
 });
 
 }
+//packet not captured in cicflowmeter
+else
+{
+console.log("not exists");
+while(!pktQueue.empty()){
+var nfPacket = pktQueue.dequeue();
+var packet = new IPv4().decode(nfPacket.payload, 0);
+//if protocol is UDP or TCP, get portnumber. otherwise, set port to 0
+var protocolNum = packet.protocol;
+if(protocolNum == 6 || protocolNum == 17){
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.payload.sport.toString(), packet.payload.dport.toString(), packet.protocol.toString()]
+	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.protocol.toString()]
+	var packetinfo = ["", date.format(new Date(),'DD/MM/YYYY HH:mm:ss') , flowInfo[0], flowInfo[1], flowInfo[2], packet.payload.sport.toString(), packet.payload.dport.toString(),];
+}else{
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0','0' ]; 
+	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0']; 
+	var packetinfo = ["", date.format(new Date(),'DD/MM/YYYY HH:mm:ss'), flowInfo[0], flowInfo[1], flowInfo[2], '0', '0' ];
+}
+console.log("not captured in cicflowmeter");
+nfPacket.setVerdict(nfq.NF_ACCEPT);
+
+log(csvFileName, packetinfo);
+
+}
+} //else end(cicflowmeter에 수집되지 않음)
+
 
 collectable = true;//ready to collect packet from nfq	
 });

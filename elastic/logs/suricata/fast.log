@@ -1,1 +1,1 @@
-06/02/2023-15:10:26.794883  [Drop] [**] [1:100:0] Drop all ICMP traffic [**] [Classification: (null)] [Priority: 3] {ICMP} 172.22.64.1:8 -> 172.22.71.20:0
+06/08/2023-16:34:17.912089  [Drop] [**] [1:100:0] Drop all ICMP traffic [**] [Classification: (null)] [Priority: 3] {ICMP} 172.22.64.1:8 -> 172.22.71.20:0
