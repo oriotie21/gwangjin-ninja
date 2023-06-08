@@ -18,34 +18,32 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td style="text-align: center">eth0</td>
-            <td style="text-align: center"><b>O</b></td>
-          </tr>
-          <tr>
-            <td style="text-align: center">lo</td>
-            <td style="text-align: center"><b>X</b></td>
+          <tr v-for="i in this.interfaces" :key="i.name">
+            <td style="text-align: center">{{ i }}</td>
+            <td style="text-align: center">
+              <b><span v-if="getInterfaceUse(i) === 'O'"> O</span></b>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <!-- <h3 v-for="interfaceName in interfaces" :key="interfaceName">
-      <b>- {{ interfaceName }}</b>
-    </h3> -->
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import yaml from "js-yaml";
 
 export default {
   data() {
     return {
-      interfaces: null,
+      interfaces: [],
+      configData: null,
     };
   },
   mounted() {
     this.fetchInterfaces();
+    this.fetchConfigData();
   },
   methods: {
     fetchInterfaces() {
@@ -53,10 +51,32 @@ export default {
         .get("http://localhost:8080/api/networkInterfaces")
         .then((response) => {
           this.interfaces = response.data;
+          console.log(this.interfaces);
         })
         .catch((error) => {
           console.error(error);
         });
+    },
+    fetchConfigData() {
+      axios
+        .get("/api/detector/config")
+        .then((response) => {
+          this.configData = yaml.load(response.data);
+          console.log(this.configData.interfaces);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    getInterfaceUse(interfaceName) {
+      if (this.configData && this.configData.interfaces[0]) {
+        const interfaceConfig = this.configData.interfaces[0] === interfaceName;
+        console.log(interfaceConfig);
+        if (interfaceConfig) {
+          return "O";
+        }
+      }
+      return "";
     },
   },
 };

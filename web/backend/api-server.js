@@ -4,6 +4,7 @@ const port = 3000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const elasticsearch = require("elasticsearch");
+const fs = require("fs");
 //import Vue from "vue";
 //const Vue = require("../frontend/src/components/Traffic.vue").default;
 
@@ -239,22 +240,36 @@ const exec = require("child_process").execSync;
 const iconv = require("iconv-lite");
 // 네트워크 인터페이스 목록 가져오기 API 엔드포인트
 app.get("/api/networkInterfaces", (req, res) => {
-  const cmd = "netsh interface show interface";
+  const cmd = "ifconfig";
   let rs = exec(cmd);
   rs = iconv.decode(rs, "euc-kr");
-  const interfaces = rs.split("\r\n"); // 각 줄을 분리하여 배열로 저장
+  const interfaces = rs.split("\n");
   const interfaceNames = [];
 
   // 인터페이스 이름 추출
-  for (let i = 3; i < interfaces.length - 2; i++) {
-    const line = interfaces[i];
-    const words = line.split(/\s{2,}/); // 공백이 두 칸 이상인 것을 기준으로 단어를 나눔
-    const interfaceName = words[words.length - 1]; // 마지막 단어를 추출
-    interfaceNames.push(interfaceName);
-  }
+  interfaces.forEach((line) => {
+    const match = line.match(/^\s*([a-zA-Z0-9]+):\s/); // Match lines starting with interface name
+    if (match) {
+      interfaceNames.push(match[1]); // Add the matched interface name to the array
+    }
+  });
 
   console.log(interfaceNames);
   res.send(interfaceNames);
+});
+
+app.get("/api/detector/config", (req, res) => {
+  const configFilePath = "../../detector/config/config.yaml";
+  fs.readFile(configFilePath, "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Failed to read config file");
+      return;
+    }
+
+    res.setHeader("Content-Type", "text/yaml");
+    res.send(data);
+  });
 });
 
 app.use((req, res, next) => {
