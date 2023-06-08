@@ -94,12 +94,12 @@ var packet = new IPv4().decode(nfPacket.payload, 0);
 //if protocol is UDP or TCP, get portnumber. otherwise, set port to 0
 var protocolNum = packet.protocol;
 if(protocolNum == 6 || protocolNum == 17){
-	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.payload.sport.toString(), packet.payload.dport.toString(), packet.protocol.toString()]
-	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.protocol.toString()]
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.payload.sport.toString(), packet.payload.dport.toString(), packet.protocol.toString()]
+	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), packet.protocol.toString()]
 	var packetinfo = ["", date.format(new Date(),'DD/MM/YYYY HH:mm:ss') , flowInfo[0], flowInfo[1], flowInfo[2], packet.payload.sport.toString(), packet.payload.dport.toString(),];
 }else{
-	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0','0' ]; 
-	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0']; 
+	var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0','0','0' ]; 
+	//var flowInfo = [packet.saddr.toString(), packet.daddr.toString(), '0']; 
 	var packetinfo = ["", date.format(new Date(),'DD/MM/YYYY HH:mm:ss'), flowInfo[0], flowInfo[1], flowInfo[2], '0', '0' ];
 }
 var flowId = flowInfo.join('-');
