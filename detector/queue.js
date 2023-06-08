@@ -11,5 +11,8 @@ class Queue {
   empty() {
     return this.buf.length === 0;
   }
+  length(){
+    return this.buf.length;
+  }
 }
 module.exports = Queue;
