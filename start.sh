@@ -54,7 +54,7 @@ command_list=(
 # xterm을 실행하고 PID를 저장합니다.
 for ps in "${command_list[@]}"
 do
-	xterm -e "$ps" & mypid=$!
+	xterm -bg black -fg white -e "$ps" & mypid=$!
 	pid_list+=($mypid)
 	sleep 0.1
 done
