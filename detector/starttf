@@ -1,2 +1,0 @@
-sudo docker run --network host -t --rm -p 8501:8501 -v ~/Documents/gwangjin_ninja/model/CIC2018_425_SMOTE:/models/CIC2018_425_SMOTE -e MODEL_NAME=CIC2018_425_SMOTE tensorflow/serving
-
