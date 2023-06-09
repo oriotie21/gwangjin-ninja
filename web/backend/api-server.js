@@ -5,8 +5,19 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const elasticsearch = require("elasticsearch");
 const fs = require("fs");
-//import Vue from "vue";
-//const Vue = require("../frontend/src/components/Traffic.vue").default;
+
+const blockNonLocalhost = (req, res, next) => {
+  const { hostname } = req;
+
+  if (hostname !== "localhost") {
+    res.status(403).send("Access Forbidden");
+    return;
+  }
+
+  next();
+};
+
+app.use(blockNonLocalhost);
 
 // Elasticsearch 클라이언트 생성
 const client = new elasticsearch.Client({
